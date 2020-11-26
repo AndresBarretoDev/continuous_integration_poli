@@ -15,4 +15,16 @@ router.get('/abuesoft/login/:usuario&:contrasena', (req, res) => {
     });
 });
 
+router.post('/abuesoft/login/', (req, res) => {
+    const { usuario, contrasena, correo, id_usuario } = req.body;
+    const query = `CALL abuesoft.SIGN_IN(?, ?, ?, ?);`;
+    mysqlConnection.query(query, [usuario, contrasena, correo, id_usuario], (err, rows, fields) => {
+        if(!err){
+            res.json('Sign in successful');
+        } else {
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;
