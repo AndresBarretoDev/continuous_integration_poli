@@ -11,6 +11,7 @@ router.get('/abuesoft/login/:usuario&:contrasena', (req, res) => {
             res.json(rows);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -23,6 +24,7 @@ router.post('/abuesoft/login/', (req, res) => {
             res.json('Successful sign-in');
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });

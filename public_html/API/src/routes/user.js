@@ -16,6 +16,7 @@ router.get('/abuesoft/user', (req, res) => {
             res.json(rows);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -29,6 +30,7 @@ router.post('/abuesoft/user/', (req, res) => {
             res.json("Successful registration");
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
