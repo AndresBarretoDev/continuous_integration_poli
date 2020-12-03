@@ -10,6 +10,7 @@ export class RegisterPatientComponent implements OnInit {
   isLinear:Boolean = true;
   firstFormGroup:FormGroup;
   secondFormGroup:FormGroup;
+  resumeRegister:any;
   constructor(private formBuilder:FormBuilder) { }
 
   ngOnInit() {
@@ -39,6 +40,10 @@ export class RegisterPatientComponent implements OnInit {
 
     console.log("patient: ", patientInfo)
     console.log("userinfo: ",userInfo)
+    this.resumeRegister = {
+      patientInfo,userInfo
+    }
+    console.log("resume: ",this.resumeRegister)
   }
 
 }
