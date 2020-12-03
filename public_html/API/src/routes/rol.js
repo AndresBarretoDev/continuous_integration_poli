@@ -10,6 +10,7 @@ router.get('/abuesoft/rol', (req, res) => {
             res.json(rows);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -21,6 +22,7 @@ router.get('/abuesoft/rol/:id', (req, res) => {
             res.json(rows[0]);
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -35,6 +37,7 @@ router.post('/abuesoft/rol', (req, res) => {
             res.json({status: 'Rol saved'});
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -48,6 +51,7 @@ router.put('/abuesoft/rol/:id', (req, res) => {
             res.json({status: 'Rol updated'});
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
@@ -59,6 +63,7 @@ router.delete('/abuesoft/rol/:id', (req, res) => {
             res.json({status: "Rol deleted"});
         } else {
             console.log(err);
+            res.json(err);
         }
     });
 });
