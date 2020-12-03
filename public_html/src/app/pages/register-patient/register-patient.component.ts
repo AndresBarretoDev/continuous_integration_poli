@@ -40,7 +40,9 @@ export class RegisterPatientComponent implements OnInit {
 
     console.log("patient: ", patientInfo)
     console.log("userinfo: ",userInfo)
-    this.resumeRegister = [{patientInfo},{userInfo}]
+    this.resumeRegister = {
+      patientInfo,userInfo
+    }
     console.log("resume: ",this.resumeRegister)
   }
 
