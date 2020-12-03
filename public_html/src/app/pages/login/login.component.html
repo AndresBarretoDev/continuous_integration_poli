@@ -1,51 +1,43 @@
 <section class="fullBox">
   <div class="fullBox__content">
-    <form [formGroup]="loginForm"  autocomplete="off" class="form form--login" (ngSubmit)="handleLogin(loginForm.value)">
-      <h1 class="form__title taC">Login</h1>
-      <mat-form-field appearance="legacy">
-        <mat-label>Correo electrónico</mat-label>
-        <input formControlName="email" matInput #input placeholder="Correo electrónico" type="email">
-        <mat-error *ngIf="
-          loginForm.get('email').hasError('pattern')
-          &&!loginForm.get('email').hasError('required')">
-          Ingresa un correo válido
-        </mat-error>
-        <mat-error
-          *ngIf="loginForm.get('email').hasError('required')">
-          El correo electrónico <strong>obligatorio</strong>
-        </mat-error>
+    <div class="fullBox__banner">
+        <img src="https://picsum.photos/1240/1080?random=2" class="img_cover" alt="">
+    </div>
+    <div class="fullBox__form">
 
-      </mat-form-field>
+      <form [formGroup]="loginForm"  autocomplete="off" class="form form--login" (ngSubmit)="handleLogin(loginForm.value)">
+        <h1 class="form__title taC">Login</h1>
+        <mat-form-field appearance="legacy">
+          <mat-label>Correo electrónico</mat-label>
+          <input formControlName="email" matInput #input placeholder="Correo electrónico" type="email">
+          <mat-error *ngIf="
+            loginForm.get('email').hasError('pattern')
+            &&!loginForm.get('email').hasError('required')">
+            Ingresa un correo válido
+          </mat-error>
+          <mat-error
+            *ngIf="loginForm.get('email').hasError('required')">
+            El correo electrónico es <strong>obligatorio</strong>
+          </mat-error>
 
-      <mat-form-field appearance="legacy">
-        <mat-label>Contraseña</mat-label>
-        <input formControlName="password" matInput #password placeholder="Contraseña" type="password">
-        <mat-error
-          *ngIf="loginForm.get('password').hasError('required')">
-          La contraseña es <strong>obligatoria</strong>
-        </mat-error>
-      </mat-form-field>
-      <button
-        class="btn btn--bluebtn mt40"
-        mat-flat-button type="submit">Ingresar
-      </button>
-    </form>
+        </mat-form-field>
+
+        <mat-form-field appearance="legacy">
+          <mat-label>Contraseña</mat-label>
+          <input formControlName="password" matInput #password placeholder="Contraseña" type="password">
+          <mat-error
+            *ngIf="loginForm.get('password').hasError('required')">
+            La contraseña es <strong>obligatoria</strong>
+          </mat-error>
+        </mat-form-field>
+        <button
+          class="btn btn--bluebtn mt40 mlA"
+          mat-flat-button type="submit">Ingresar
+        </button>
+      </form>
+    </div>
+
   </div>
 
 </section>
 
-<!--
-<mat-form-field class="col-5 mb-2 mx-auto">
-  <mat-label>Email</mat-label>
-  <input type="email" matInput formControlName="username"
-  placeholder="Correo Electrónico"/>
-  <mat-error *ngIf="
-  loginForm.get('username').hasError('username')
-  &&!loginForm.get('username').hasError('required')">
-  Please enter a valid username address
-  </mat-error>
-  <mat-error
-  *ngIf="loginForm.get('username').hasError('required')">
-  Email is <strong>required</strong>
-  </mat-error>
-</mat-form-field> -->

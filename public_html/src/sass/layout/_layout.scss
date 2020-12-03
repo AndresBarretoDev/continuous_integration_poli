@@ -20,6 +20,16 @@
 	}
 
 }
+.img_cover{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.img_contain{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .noEvents{
 	pointer-events: none;
 }
@@ -269,19 +279,19 @@
 }
 
 .mtA {
-	margin-top: auto;
+	margin-top: auto!important;
 }
 
 .mlA {
-	margin-left: auto;
+	margin-left: auto!important;
 }
 
 .mrA {
-	margin-right: auto;
+	margin-right: auto!important;
 }
 
 .mbA {
-	margin-bottom: auto;
+	margin-bottom: auto!important;
 }
 
 @include mq(mob) {

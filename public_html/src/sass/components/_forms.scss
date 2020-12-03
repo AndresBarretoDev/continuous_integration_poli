@@ -44,10 +44,19 @@ form {
 
     .form {
       &__title {
-        @include fontSize(20);
+        font-size:toRem(20);
         text-transform: uppercase;
         margin-bottom: 20px;
       }
+    }
+  }
+  &--stepper{
+    .form__list{
+      width: 100%;
+
+    }
+    .form__box{
+      padding: 10px;
     }
   }
 }

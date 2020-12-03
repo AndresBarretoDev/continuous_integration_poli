@@ -8,11 +8,13 @@ import { MedicalServicesComponent } from './medical-services/medical-services.co
 import { ComponentsModule } from '../components/components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RegisterPatientComponent } from './register-patient/register-patient.component';
+import { UsersInformationComponent } from './users-information/users-information.component';
 
 
 
 @NgModule({
-  declarations: [HomepageComponent, LoginComponent, MedicalServicesComponent, DashboardComponent],
+  declarations: [HomepageComponent, LoginComponent, MedicalServicesComponent, DashboardComponent, RegisterPatientComponent, UsersInformationComponent],
   imports: [
     CommonModule,
     MaterialModule,
