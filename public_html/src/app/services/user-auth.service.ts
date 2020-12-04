@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -12,14 +12,19 @@ export class UserAuthService {
 
   // METHOD LOGIN
   handleLogin(dataForm:any) {
+    // console.log({param})
     return new Promise((resolve, reject) => {
+        let param = {
+          usuario:dataForm.email,
+          contrasena:dataForm.password
+        }
       // let headers: HttpHeaders = new HttpHeaders();
       // headers.append('Content-Type', 'application/json');
-      this.http.post(`${this.urlPath}/abuesoft/...`,dataForm)
+      const params = new HttpParams().append(param.usuario, param.contrasena);
+      this.http.get(`${this.urlPath}/abuesoft/login/${param.usuario}&${param.contrasena}`)
         .toPromise()
         .then(response => {
           console.log("reponse", response)
-          return
           resolve(response)
         }).catch(error => {
           reject(error)

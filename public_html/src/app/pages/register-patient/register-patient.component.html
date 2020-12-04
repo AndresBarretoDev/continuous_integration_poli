@@ -1,22 +1,30 @@
 
 <mat-horizontal-stepper class="stepperBox" [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form autocomplete="off" class="form form--stepper" [formGroup]="firstFormGroup" >
+  <mat-step [stepControl]="patientInfo">
+    <form autocomplete="off" class="form form--stepper mt35" [formGroup]="patientInfo" >
       <ng-template matStepLabel>Datos personales del paciente</ng-template>
       <mat-grid-list class="form__list" cols="2" rowHeight="60">
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombre" required>
+            <input matInput placeholder="Nombres" formControlName="nombre_nono" required>
+            <mat-error *ngIf="
+             patientInfo.get('nombre_nono').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
-        <!-- form box  -->
+        <!-- end form box  -->
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos" formControlName="apellido" required>
+            <input matInput placeholder="Apellidos" formControlName="apellido_nono" required>
+            <mat-error *ngIf="
+             patientInfo.get('apellido_nono').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -24,7 +32,15 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Tipo de documento</mat-label>
-            <input matInput placeholder="Tipo de documento" formControlName="tipo_doc" required>
+            <mat-select formControlName="tipo_doc_nono" required>
+              <mat-option *ngFor="let type of listDoc" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="
+             patientInfo.get('tipo_doc_nono').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -32,7 +48,11 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Número de documento</mat-label>
-            <input type="tel" matInput placeholder="Número de documento" formControlName="documento" required>
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc_nono" required>
+            <mat-error *ngIf="
+             patientInfo.get('doc_nono').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -40,7 +60,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Edad</mat-label>
-            <input type="tel" matInput placeholder="Edad del paciente" formControlName="edad" required>
+            <input type="number" matInput placeholder="Edad del paciente" formControlName="edad" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -48,7 +68,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Habitación</mat-label>
-            <input type="tel" matInput placeholder="Número de habitación" formControlName="habitacion" required>
+            <input type="number" matInput placeholder="Número de habitación" formControlName="habitacion" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -56,24 +76,24 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Eps</mat-label>
-            <input type="tel" matInput placeholder="Eps del paciente" formControlName="eps" required>
+            <input type="text" matInput placeholder="Eps del paciente" formControlName="eps" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
       </mat-grid-list>
-      <div>
-        <button mat-button matStepperNext (click)="onClick()">Continuar</button>
+      <div class="mt35">
+        <button mat-raised-button matStepperNext color="primary" >Continuar</button>
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Datos personales del acudiente">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="patientGuard" label="Datos personales del acudiente">
+    <form [formGroup]="patientGuard" class="form form--stepper mt35">
       <mat-grid-list class="form__list" cols="2" rowHeight="60">
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombre" required>
+            <input matInput placeholder="Nombres" formControlName="nombre_rep" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -81,7 +101,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos" formControlName="apellido" required>
+            <input matInput placeholder="Apellidos" formControlName="apellido_rep" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -89,7 +109,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Tipo de documento</mat-label>
-            <input matInput placeholder="Tipo de documento" formControlName="tipo_doc" required>
+            <input matInput placeholder="Tipo de documento" formControlName="tipo_doc_rep" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -97,7 +117,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Número de documento</mat-label>
-            <input type="tel" matInput placeholder="Número de documento" formControlName="documento" required>
+            <input type="tel" matInput placeholder="Número de documento" formControlName="doc_rep" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -112,26 +132,60 @@
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
+            <mat-label>Teléfono</mat-label>
+            <input type="tel" matInput placeholder="Dirección acudiente" formControlName="tel_rep" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
             <mat-label>Correo electrónico</mat-label>
             <input type="email" matInput placeholder="usuario@ejemplo.com" formControlName="correo" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
       </mat-grid-list>
-      <div>
-        <button mat-button matStepperPrevious>Regresar</button>
-        <button mat-button matStepperNext>Continuar</button>
+      <div class="mt35">
+        <button mat-raised-button matStepperPrevious class="mr10">Regresar</button>
+        <button mat-raised-button color="primary" matStepperNext (click)="prepareResume(patientInfo.value, patientGuard.value)">Continuar</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Terminar</ng-template>
-    <p class="taC mb40">Resumen del registro en construcción</p>
+    <div class="resumeBox">
+      <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume | slice:1:2">
+        <p>Información Representante</p>
+        <li>
+          <span>Nombres y apellidos:</span>
+          <span>{{guardInfo.nombre_rep}} {{guardInfo.apellido_rep}}</span>
+        </li>
+        <li>
+          <span>Documento:</span>
+          <span>{{guardInfo.tipo_doc_rep}}</span>
+        </li>
 
-    <button  mat-flat-button type="button" (click)="handleRegisterPatient(firstFormGroup.value, secondFormGroup.value)">Terminar registro</button>
+      </ul>
+      <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume | slice:0:1">
+        <p>Información abuelo</p>
+        <li>
+          <span>Nombres y apellidos:</span>
+          <span>{{guardInfo.nombre_nono}} {{guardInfo.apellido_nono}}</span>
+        </li>
+        <li>
+          <span>Documento:</span>
+          <span>{{guardInfo.tipo_doc_nono}}</span>
+        </li>
+
+      </ul>
+    </div>
+
+
     <div>
-      <button mat-button matStepperPrevious>Volver</button>
-      <button mat-button (click)="stepper.reset()">Reiniciar</button>
+      <button mat-stroked-button matStepperPrevious class="mr10">Volver</button>
+      <button mat-raised-button color="warn" class="mr10" (click)="stepper.reset()">Reiniciar</button>
+      <button mat-raised-button type="button" color="primary" (click)="handleRegisterPatient(resumeRegister)">Terminar registro</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>

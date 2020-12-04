@@ -10,7 +10,7 @@ import { UserAuthService } from '../../services/user-auth.service';
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
-  isLocalLogin:Boolean = true;
+  isLocalLogin:Boolean = false;
 
   constructor(private formBuilder: FormBuilder,
     private userAuth :UserAuthService, private router:Router) {
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   // CREATE REACTIVE LOGIN FORM
   createLoginForm() {
     this.loginForm = this.formBuilder.group({ ///^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/   [a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$
-      email: ['', [Validators.required, Validators.pattern('[a-zA-Z0-9._%+-]+[a-zA-Z0-9-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      email: ['', [Validators.required]],
       password: ['', Validators.required],
     })
   }
@@ -41,8 +41,15 @@ export class LoginComponent implements OnInit {
     }
     // handle response server
     try {
-      const response =  await this.userAuth.handleLogin(dataForm);
+      const response:any =  await this.userAuth.handleLogin(dataForm);
       console.log("Response login", response)
+     response.map((resp:any)=> {
+       if (resp.valor == 1) {
+         alert("es 1")
+       } else{
+         alert("es 0")
+       }
+     })
 
     } catch (error) {
       console.log("Error login", error)
