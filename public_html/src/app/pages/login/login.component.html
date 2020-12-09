@@ -7,22 +7,17 @@
 
       <form [formGroup]="loginForm"  autocomplete="off" class="form form--login" (ngSubmit)="handleLogin(loginForm.value)">
         <h1 class="form__title taC">Login</h1>
-        <mat-form-field appearance="legacy">
-          <mat-label>Correo electrónico</mat-label>
-          <input formControlName="email" matInput #input placeholder="Correo electrónico" type="email">
-          <mat-error *ngIf="
-            loginForm.get('email').hasError('pattern')
-            &&!loginForm.get('email').hasError('required')">
-            Ingresa un correo válido
-          </mat-error>
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre de usuario</mat-label>
+          <input formControlName="userName" matInput #input placeholder="Nombre de usuario" type="text">
           <mat-error
-            *ngIf="loginForm.get('email').hasError('required')">
-            El correo electrónico es <strong>obligatorio</strong>
+            *ngIf="loginForm.get('userName').hasError('required')">
+            El campo nombre de usuario es <strong>obligatorio</strong>
           </mat-error>
 
         </mat-form-field>
 
-        <mat-form-field appearance="legacy">
+        <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
           <input formControlName="password" matInput #password placeholder="Contraseña" type="password">
           <mat-error
@@ -32,7 +27,7 @@
         </mat-form-field>
         <button
           class="btn btn--bluebtn mt40 mlA"
-          mat-flat-button type="submit">Ingresar
+          mat-raised-button type="submit">Ingresar
         </button>
       </form>
     </div>
