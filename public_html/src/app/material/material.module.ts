@@ -9,6 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -26,7 +27,8 @@ const materialModules = [
   MatPaginatorModule,
   MatExpansionModule,
   MatStepperModule,
-  MatGridListModule
+  MatGridListModule,
+  MatDialogModule
 ]
 @NgModule({
   declarations: [],
