@@ -22,10 +22,10 @@ router.post('/abuesoft/login/', (req, res) => {
     const query = `CALL abuesoft.sign_up(?, ?, ?, ?);`;
     mysqlConnection.query(query, [usuario, contrasena, correo, documento], (err, rows, fields) => {
         if(!err){
-            res.json('Successful sign-up');
+            res.json({status: 'true'});
             res.json(rows);
         } else {
-            console.log(err);
+            res.json({status: "false"});
             res.json(err);
         }
     });
