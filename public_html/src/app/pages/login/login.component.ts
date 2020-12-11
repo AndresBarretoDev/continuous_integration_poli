@@ -44,14 +44,11 @@ export class LoginComponent implements OnInit {
       const response: any = await this.userAuth.handleLogin(dataForm);
       console.log("Response login", response)
 
-
       response.map((resp: any) => {
         console.log(resp.valor)
         const userInfo = JSON.parse(resp.valor)
         console.log(userInfo)
         if (userInfo.value == 1) {
-          alert(userInfo)
-          return
           this.router.navigate(['./dashboard/home'])
         } else {
           this.dialog.open(GlobalAlertComponent, {

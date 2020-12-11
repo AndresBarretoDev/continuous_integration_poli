@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserAuthService } from '../../services/user-auth.service';
 
 @Component({
   selector: 'app-register-patient',
@@ -13,7 +14,8 @@ export class RegisterPatientComponent implements OnInit {
   resumeRegister:any;
   listDoc:any;
   finalResume:any;
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,
+    private userService:UserAuthService) { }
 
   ngOnInit() {
     this.patientInfo = this.formBuilder.group({
@@ -60,13 +62,36 @@ export class RegisterPatientComponent implements OnInit {
       representante
     }
     this.finalResume = Object.values(this.resumeRegister)
-    console.log(this.finalResume)
+    console.log("final resume:===",this.finalResume)
 
 
-    console.log("resume: ",this.resumeRegister)
+    // console.log("resume: ",this.resumeRegister)
   }
   handleRegisterPatient(info){
-    alert("se envia el formulario")
+    console.log("resume to send: ", info)
+    let paramsTest = {
+      "representante": {
+        "nombre_rep": "pedro",
+        "apellido_rep": "Diaz",
+        "tipo_doc_rep": "CC",
+        "doc_rep": "77777777",
+        "tel_rep": 45454522,
+        "direccion": "Cra 78 sur # 45 h 23",
+        "correo": "representante@test.com"
+        },
+        "abuelo": {
+        "nombre_nono": "marta ",
+        "apellido_nono": "lopez",
+        "tipo_doc_nono": "CC",
+        "doc_nono": "11112222333",
+        "habitacion": 201,
+        "edad": 76,
+        "eps": "Compensar"
+        }
+  }
+  console.log("resume to send test!!!: ", paramsTest)
+
+   this.userService.registerPatients(info)
   }
 
 }

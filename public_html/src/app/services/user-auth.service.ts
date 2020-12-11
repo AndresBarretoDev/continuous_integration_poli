@@ -50,6 +50,35 @@ export class UserAuthService {
         })
     })
   }
+  // METHOD GET PATIENTS USER REGISTERED
+  getPatientUsers() {
+
+    return new Promise((resolve, reject) => {
+      // let headers: HttpHeaders = new HttpHeaders();
+      // headers.append('Content-Type', 'application/json');
+      this.http.get(`${this.urlPath}/abuesoft/user`)
+        .toPromise()
+        .then(response => {
+          console.log("reponse rol", response)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
+    })
+  }
+  // REGISTER PATIENTS USERS
+  registerPatients(params:any){
+    console.log(params)
+    return new Promise( (resolve, reject)=>{
+      this.http.post(`${this.urlPath}/abuesoft/user`,params)
+      .toPromise()
+      .then(response =>{
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
 
   isAuth(){
     return true
