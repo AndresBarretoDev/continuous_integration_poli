@@ -52,14 +52,13 @@ export class UserAuthService {
   }
   // METHOD GET PATIENTS USER REGISTERED
   getPatientUsers() {
-
     return new Promise((resolve, reject) => {
       // let headers: HttpHeaders = new HttpHeaders();
       // headers.append('Content-Type', 'application/json');
       this.http.get(`${this.urlPath}/abuesoft/user`)
         .toPromise()
         .then(response => {
-          console.log("reponse rol", response)
+          console.log("reponse users!!!!", response)
           resolve(response)
         }).catch(error => {
           reject(error)
