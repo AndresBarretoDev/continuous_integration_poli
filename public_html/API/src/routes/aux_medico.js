@@ -6,7 +6,7 @@ const mysqlConnection = require('../database');
 
 router.post('/abuesoft/aux_medico/', (req, res) => {
     const { id, nombre, apellido, tipo_doc, doc, tel, direccion, correo } = req.body;
-    const procedure_call = `CALL abuesoft.add_nurse(?, ?, ?, ?, ?, ?, ?, ?);`;
+    const procedure_call = `CALL abuesoft.sp_add_edit_aux_medico(?, ?, ?, ?, ?, ?, ?, ?);`;
     mysqlConnection.query(procedure_call, [id, nombre, apellido, tipo_doc, doc, tel, direccion, correo], (err, rows, fields) => {
         if(!err){
             res.json({status: true});
@@ -20,7 +20,7 @@ router.post('/abuesoft/aux_medico/', (req, res) => {
 router.put('/abuesoft/aux_medico/:id', (req, res) => {
     const { id } = req.params;
     const { nombre, apellido, tipo_doc, doc, tel, direccion, correo } = req.body;
-    const procedure_call = `CALL abuesoft.add_nurse(?, ?, ?, ?, ?, ?, ?, ?);`;
+    const procedure_call = `CALL abuesoft.sp_add_edit_aux_medico(?, ?, ?, ?, ?, ?, ?, ?);`;
     mysqlConnection.query(procedure_call, [id, nombre, apellido, tipo_doc, doc, tel, direccion, correo], (err, rows, fields) => {
         if(!err){
             res.json({status: true});

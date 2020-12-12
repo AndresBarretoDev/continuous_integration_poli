@@ -40,11 +40,24 @@ router.post('/abuesoft/user/', (req, res) => {
     const procedure_call = `CALL abuesoft.add_abuelo_repsnt(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     mysqlConnection.query(procedure_call, [nombre_nono, apellido_nono, tipo_doc_nono, doc_nono, habitacion, edad, eps, nombre_rep, apellido_rep, tipo_doc_rep, doc_rep, tel_rep, direccion, correo ], (err, rows, fields) => {
         if(!err){
-            res.json({status: "true"});
+            res.json({status: true});
         } else {
             console.log(err);
-            res.json({status: "false"})
+            res.json({status: false})
             res.json(err);
+        }
+    });
+});
+
+router.put('/abuesoft/user/:id', (req, res) => {
+    const { id } = req.params;
+    const { nombre, apellido, tipo_doc, doc, habitacion, edad, eps } = req.body;
+    const procedure_call = `CALL abuesoft.sp_edit_abuelo(?, ?, ?, ?, ?, ?, ?, ?);`;
+    mysqlConnection.query(procedure_call, [id, nombre, apellido, tipo_doc, doc, habitacion, edad, eps], (err, rows, field) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
         }
     });
 });
