@@ -32,7 +32,7 @@ router.put('/abuesoft/aux_medico/:id', (req, res) => {
 });
 
 router.get('/abuesoft/aux_medico', (req, res) => {
-    const query = `SELECT  a.*, b.*
+    const query = `SELECT  a.idusuario, a.nombre, a.apellido, a.tipo_doc, a.documento, a.telefono, a.direccion, a.correo, a.idrol, b.nombre rol, b.descripcion
         FROM usuario a
         JOIN rol b
 		    ON a.idrol = b.idrol
