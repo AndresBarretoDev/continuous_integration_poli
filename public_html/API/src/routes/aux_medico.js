@@ -31,4 +31,20 @@ router.put('/abuesoft/aux_medico/:id', (req, res) => {
     });
 });
 
+router.get('/abuesoft/aux_medico', (req, res) => {
+    const query = `SELECT  a.*, b.*
+        FROM usuario a
+        JOIN rol b
+		    ON a.idrol = b.idrol
+        WHERE b.nombre = "auxiliar médico";`;
+    mysqlConnection.query(query, (err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            res.json(err);
+            console.log(err);
+        }
+    });
+});
+
 module.exports = router;
