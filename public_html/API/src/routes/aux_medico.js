@@ -49,7 +49,7 @@ router.get('/abuesoft/aux_medico', (req, res) => {
 
 router.delete('/abuesoft/aux_medico/:id', (req, res) => {
     const { id } = req.params;
-    const query = `DELETE FROM abuesoft.rol WHERE idusuario = ?`;
+    const query = `DELETE FROM abuesoft.usuario WHERE idusuario = ?`;
     mysqlConnection.query(query, [id], (err, rows, fields) => {
         if(!err){
             res.json({status: true});
