@@ -5,13 +5,15 @@ const router = express.Router();
 const mysqlConnection = require('../database');
 
 router.get('/abuesoft/user', (req, res) => {
-    const query = `SELECT b.nombre nombre_abuelo,
+    const query = `SELECT b.idusuario id_abuelo,
+        b.nombre nombre_abuelo,
         b.apellido apellido_abuelo,
         b.tipo_doc tipo_doc_abuelo,
         b.documento doc_abuelo,
         a.habitacion,
         a.edad,
         a.EPS,
+        c.idusuario id_repsnt,
         c.nombre nombre_repstn,
         c.apellido apellido_repstn,
         c.tipo_doc tipo_doc_repstn,
