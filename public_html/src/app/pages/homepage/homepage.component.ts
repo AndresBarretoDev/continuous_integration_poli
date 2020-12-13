@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserAuthService } from '../../services/user-auth.service';
 export interface UserData {
   id: string;
   name: string;
@@ -18,7 +19,7 @@ export class HomepageComponent implements OnInit {
 
   @ViewChild(MatPaginator,{static:true}) paginator: MatPaginator;
   @ViewChild(MatSort,{static:true}) sort: MatSort;
-  constructor() {
+  constructor(private userService:UserAuthService) {
     // Create 100 users
 
     // Assign the data to the data source for the table to render
@@ -29,6 +30,8 @@ export class HomepageComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
   ngOnInit() {
+    console.log("get data info", this.userService.getPatientUsers())
+    console.log("oninit home")
     this.dataSource.data=[
       {
         id:'0',

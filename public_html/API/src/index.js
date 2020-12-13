@@ -19,6 +19,8 @@ app.use(express.json());
 // Routes (Server's URLs to process, receive, send data)
 app.use(require('./routes/rol'));
 app.use(require('./routes/login'));
+app.use(require('./routes/user'));
+
 // Starting the server
 app.listen(app.get('port'), () => {
     console.log('Server on port ', app.get('port'));
