@@ -77,4 +77,21 @@ router.put('/abuesoft/user_repsnt/:id', (req, res) => {
     });
 });
 
+router.delete('/abuesoft/user/:id', (req, res) => {
+    const { id } = req.params;
+    // Crear sp que elimine los registros en la tabla abuelo y usuario del abuelo y representante,
+    // recibe por argumento el idusuario del abuelo a eliminar, luego obtiene la llave foránea idrepresentante
+    // por medio de una consulta, y elimina los registros correspondientes del abuelo en las tablas abuelo y 
+    // usuario por el idusuario recibido por argumento y luego elimina el representante por el idrepresentante.
+    const procedure_call = `CALL abuesoft.sp_delete_abuelo_repsnt(?);`;
+    mysqlConnection.query(procedure_call, [id], (err, rows, field) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
+        }
+    });
+    // Agregar campo "estado" a la tabla de usuario y login
+});
+
 module.exports = router;
