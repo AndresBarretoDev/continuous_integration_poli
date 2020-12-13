@@ -64,4 +64,17 @@ router.put('/abuesoft/user/:id', (req, res) => {
     });
 });
 
+router.put('/abuesoft/user_repsnt/:id', (req, res) => {
+    const { id } = req.params;
+    const { nombre, apellido, tipo_doc, doc, telefono, direccion, correo } = req.body;
+    const procedure_call = `CALL abuesoft.sp_edit_repsnt(?, ?, ?, ?, ?, ?, ?, ?);`;
+    mysqlConnection.query(procedure_call, [id, nombre, apellido, tipo_doc, doc, telefono, direccion, correo], (err, rows, field) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
+        }
+    });
+});
+
 module.exports = router;
