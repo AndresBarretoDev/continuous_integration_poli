@@ -22,6 +22,7 @@ app.use(require('./routes/login'));
 app.use(require('./routes/user'));
 app.use(require('./routes/aux_medico'));
 app.use(require('./routes/medicamento'));
+app.use(require('./routes/abuelo_medicamento'));
 
 // Starting the server
 app.listen(app.get('port'), () => {
