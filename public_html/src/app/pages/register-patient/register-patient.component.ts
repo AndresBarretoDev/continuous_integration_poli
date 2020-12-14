@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserAuthService } from '../../services/user-auth.service';
 
 @Component({
@@ -15,7 +16,8 @@ export class RegisterPatientComponent implements OnInit {
   listDoc:any;
   finalResume:any;
   constructor(private formBuilder:FormBuilder,
-    private userService:UserAuthService) { }
+    private userService:UserAuthService,
+    private router:Router) { }
 
   ngOnInit() {
     this.patientInfo = this.formBuilder.group({
@@ -67,31 +69,19 @@ export class RegisterPatientComponent implements OnInit {
 
     // console.log("resume: ",this.resumeRegister)
   }
-  handleRegisterPatient(info){
-    console.log("resume to send: ", info)
-    let paramsTest = {
-      "representante": {
-        "nombre_rep": "pedro",
-        "apellido_rep": "Diaz",
-        "tipo_doc_rep": "CC",
-        "doc_rep": "77777777",
-        "tel_rep": 45454522,
-        "direccion": "Cra 78 sur # 45 h 23",
-        "correo": "representante@test.com"
-        },
-        "abuelo": {
-        "nombre_nono": "marta ",
-        "apellido_nono": "lopez",
-        "tipo_doc_nono": "CC",
-        "doc_nono": "11112222333",
-        "habitacion": 201,
-        "edad": 76,
-        "eps": "Compensar"
-        }
-  }
-  console.log("resume to send test!!!: ", paramsTest)
+  async handleRegisterPatient(info:any){
 
-   this.userService.registerPatients(info)
+    try {
+      const response = await this.userService.registerPatients(info)
+      if (response) {
+        this.router.navigate(['./dashboard/home'])
+      }else{
+        alert("El usuario ingresado ya existe")
+      }
+
+    } catch (error) {
+
+    }
   }
 
 }

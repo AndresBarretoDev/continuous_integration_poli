@@ -10,6 +10,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatMenuModule } from '@angular/material/menu';
+
 
 
 
@@ -28,7 +30,8 @@ const materialModules = [
   MatExpansionModule,
   MatStepperModule,
   MatGridListModule,
-  MatDialogModule
+  MatDialogModule,
+  MatMenuModule
 ]
 @NgModule({
   declarations: [],

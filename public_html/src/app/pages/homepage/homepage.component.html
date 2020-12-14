@@ -1,33 +1,90 @@
-<div class="homeBox">
+<div class="homeBox containerBox containerBox--limit pb60">
+  <!-- top filter and button  -->
+  <div class="dF jcSB fw-nW w100 mt35 mb25">
+      <!-- button route create user  -->
+    <a routerLink="../register-patient" mat-stroked-button color="primary" class="dB mlA">
+      <mat-icon>person_add</mat-icon>
+      Agregar usuario
+    </a>
+    <!-- end button route create user  -->
+  </div>
+  <!-- end top filter and button  -->
+  <!-- table caption  -->
+  <h1 class="taC mb25 w100 bolder fs24">Lista de pacentes Registrados</h1>
+  <!--End  table caption  -->
 
-  <a routerLink="../register-patient" mat-stroked-button color="primary" class="mlA">
-    <mat-icon>person_add</mat-icon>
-    Agregar usuario
-  </a>
 
-  <mat-form-field>
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
-  </mat-form-field>
-  <div class="table-wrapper global-shadow">
-    <table mat-table [dataSource]="dataSource" matSort>
+  <div class="table-wrapper card mb60">
+    <div class="p15 dF">
+        <!-- input filter table  -->
+    <mat-form-field class="max300 form__search mlA" appearance="outline" >
+      <mat-label>Filtrar usuario</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ejemplo: Maria" #input autocomplete="off">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <!-- end input filter table  -->
+    </div>
+    <table class="table" mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
 
       <!-- ID Column -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      <ng-container matColumnDef="nombre_abuelo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres </th>
+        <td mat-cell *matCellDef="let row"> {{row.nombre_abuelo}} </td>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      <ng-container matColumnDef="apellido_abuelo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
+        <td mat-cell *matCellDef="let row"> {{row.apellido_abuelo}} </td>
       </ng-container>
       <!-- Name Column -->
-      <ng-container matColumnDef="lastname">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Lastname </th>
-        <td mat-cell *matCellDef="let row"> {{row.lastname}} </td>
+      <ng-container matColumnDef="tipo_doc_abuelo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Documento </th>
+        <td mat-cell *matCellDef="let row"> {{row.tipo_doc_abuelo}} </td>
       </ng-container>
+      <ng-container matColumnDef="doc_abuelo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> N° Documento </th>
+        <td mat-cell *matCellDef="let row"> {{row.doc_abuelo}} </td>
+      </ng-container>
+      <ng-container matColumnDef="habitacion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Habitación </th>
+        <td mat-cell *matCellDef="let row"> {{row.habitacion}} </td>
+      </ng-container>
+      <ng-container matColumnDef="edad">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
+        <td mat-cell *matCellDef="let row"> {{row.edad}} </td>
+      </ng-container>
+      <ng-container matColumnDef="EPS">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Eps </th>
+        <td mat-cell *matCellDef="let row"> {{row.EPS}}</td>
+      </ng-container>
+      <!-- ACTIONS COLUMN  -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+        <td mat-cell *matCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon button menu"
+            class="dB mA">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="openModalUser(row,'patient')">
+              <mat-icon color="primary">edit</mat-icon>
+              <span>Editar abuelo</span>
+            </button>
+            <button mat-menu-item (click)="openModalUser(row,'representant')">
+              <mat-icon color="accent">edit</mat-icon>
+              <span>Editar Representante</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon color="warn">person_remove</mat-icon>
+              <span>Eliminar usuario</span>
+            </button>
+
+          </mat-menu>
+
+        </td>
+      </ng-container>
+
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
@@ -38,7 +95,168 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[10, 15, 25, 100]"></mat-paginator>
   </div>
 
 </div>
+<section class="modal global-shadow" *ngIf="dialog">
+  <div class="modal__overlay" (click)="closeDialog()"></div>
+  <div class="modal__content">
+    <form autocomplete="off" class="form form--stepper" [formGroup]="patientForm" *ngIf="isPatient">
+      <!-- table caption  -->
+      <h1 class="taC mb25 w100 bolder fs24">Editar Abuelo</h1>
+      <!--End  table caption  -->
+      <mat-grid-list class="form__list" cols="2" rowHeight="60">
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box  ">
+            <mat-label>Nombres</mat-label>
+            <input matInput placeholder="Nombres" formControlName="nombre_nono" >
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Apellidos</mat-label>
+            <input matInput placeholder="Apellidos" formControlName="apellido_nono">
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Tipo de documento</mat-label>
+            <mat-select formControlName="tipo_doc_nono">
+              <mat-option *ngFor="let type of listDoc" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Número de documento</mat-label>
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc_nono">
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Edad</mat-label>
+            <input type="number" matInput placeholder="Edad del paciente" formControlName="edad" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Habitación</mat-label>
+            <input type="number" matInput placeholder="Número de habitación" formControlName="habitacion" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Eps</mat-label>
+            <input type="text" matInput placeholder="Eps del paciente" formControlName="eps" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+      </mat-grid-list>
+      <div class="dF jcFE">
+        <button mat-stroked-button
+        class="mr10" (click)="closeDialog()">
+          Cancelar
+        </button>
+        <button mat-raised-button
+          type="button" color="primary"
+          (click)="updateInfoPatient(patientForm.value)">
+          Actualizar
+        </button>
+      </div>
+    </form>
+    <form autocomplete="off" class="form form--stepper" [formGroup]="representantForm" *ngIf="isRepresent">
+      <!-- table caption  -->
+      <h1 class="taC mb25 w100 bolder fs24">Editar representante</h1>
+      <!--End  table caption  -->
+      <mat-grid-list class="form__list" cols="2" rowHeight="60">
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box  ">
+            <mat-label>Nombres</mat-label>
+            <input matInput placeholder="Nombres" formControlName="nombre_rep" >
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Apellidos</mat-label>
+            <input matInput placeholder="Apellidos" formControlName="apellido_rep">
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Tipo de documento</mat-label>
+            <mat-select formControlName="tipo_doc_rep">
+              <mat-option *ngFor="let type of listDoc" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box ">
+            <mat-label>Número de documento</mat-label>
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc_rep">
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Dirección</mat-label>
+            <input type="text" matInput placeholder="Dirección " formControlName="direccion" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Correo electrónico</mat-label>
+            <input type="email" matInput placeholder="Correo electrónico" formControlName="correo" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Teléfono</mat-label>
+            <input type="text" matInput placeholder="Teléfono" formControlName="tel_rep" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+      </mat-grid-list>
+      <div class="dF jcFE">
+        <button mat-stroked-button
+        class="mr10" (click)="closeDialog()">
+          Cancelar
+        </button>
+        <button mat-raised-button
+          type="button" color="primary"
+          (click)="updateInfoPatient(representantForm.value)">
+          Actualizar
+        </button>
+      </div>
+    </form>
+  </div>
+</section>

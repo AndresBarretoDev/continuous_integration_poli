@@ -81,7 +81,7 @@
         </mat-grid-tile>
         <!-- form box  -->
       </mat-grid-list>
-      <div class="mt35">
+      <div class="mt35 dF jcFE ">
         <button mat-raised-button matStepperNext color="primary" >Continuar</button>
       </div>
     </form>
@@ -109,7 +109,12 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Tipo de documento</mat-label>
-            <input matInput placeholder="Tipo de documento" formControlName="tipo_doc_rep" required>
+            <mat-select formControlName="tipo_doc_rep" required>
+              <mat-option *ngFor="let type of listDoc" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <!-- <input matInput placeholder="Tipo de documento" formControlName="tipo_doc_rep" required> -->
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -146,43 +151,47 @@
         </mat-grid-tile>
         <!-- form box  -->
       </mat-grid-list>
-      <div class="mt35">
+      <div class="mt35 dF jcFE ">
         <button mat-raised-button matStepperPrevious class="mr10">Regresar</button>
-        <button mat-raised-button color="primary" matStepperNext (click)="prepareResume(patientInfo.value, patientGuard.value)">Continuar</button>
+        <button mat-raised-button color="primary" matStepperNext
+        (click)="prepareResume(patientInfo.value, patientGuard.value)">Continuar</button>
       </div>
     </form>
   </mat-step>
   <mat-step>
     <ng-template matStepLabel>Terminar</ng-template>
     <div class="resumeBox">
-      <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume | slice:1:2">
-        <p>Información Representante</p>
+      <ul class="resumeBox__list" *ngFor="let representant of finalResume | slice:1:2">
+        <p class="resumeBox__title">Información Representante</p>
         <li>
-          <span>Nombres y apellidos:</span>
-          <span>{{guardInfo.nombre_rep}} {{guardInfo.apellido_rep}}</span>
+          <span class="bolder">Nombres y apellidos: </span>
+          <span>{{representant.nombre_rep}} {{representant.apellido_rep}}</span>
         </li>
         <li>
-          <span>Documento:</span>
-          <span>{{guardInfo.tipo_doc_rep}}</span>
+          <span class="bolder">Documento: </span>
+          <span>{{representant.tipo_doc_rep}}</span>
+        </li>
+        <li>
+          <span class="bolder">Numero documento: </span>
+          <span>{{representant.doc_rep}}</span>
         </li>
 
       </ul>
       <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume | slice:0:1">
-        <p>Información abuelo</p>
+        <p class="resumeBox__title">Información abuelo</p>
         <li>
-          <span>Nombres y apellidos:</span>
+          <span class="bolder">Nombres y apellidos: </span>
           <span>{{guardInfo.nombre_nono}} {{guardInfo.apellido_nono}}</span>
         </li>
         <li>
-          <span>Documento:</span>
+          <span class="bolder">Documento: </span>
           <span>{{guardInfo.tipo_doc_nono}}</span>
         </li>
-
       </ul>
     </div>
 
 
-    <div>
+    <div class="dF jcFE mt40">
       <button mat-stroked-button matStepperPrevious class="mr10">Volver</button>
       <button mat-raised-button color="warn" class="mr10" (click)="stepper.reset()">Reiniciar</button>
       <button mat-raised-button type="button" color="primary" (click)="handleRegisterPatient(resumeRegister)">Terminar registro</button>

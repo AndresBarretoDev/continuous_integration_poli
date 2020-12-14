@@ -7,7 +7,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { MedicalServicesComponent } from './medical-services/medical-services.component';
 import { ComponentsModule } from '../components/components.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
 import { UsersInformationComponent } from './users-information/users-information.component';
 
@@ -20,7 +20,8 @@ import { UsersInformationComponent } from './users-information/users-information
     MaterialModule,
     AppRoutingModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ]
 })
 export class PagesModule { }

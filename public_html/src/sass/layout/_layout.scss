@@ -57,7 +57,7 @@
 }
 
 .dB {
-	display: block;
+	display: block!important;
 }
 
 .dIB {
@@ -148,6 +148,15 @@
 }
 .max210 {
 	max-width: 210px;
+}
+.max300 {
+	max-width: 300px;
+}
+.max400 {
+	max-width: 400px;
+}
+.max500 {
+	max-width: 500px;
 }
 
 .max700 {

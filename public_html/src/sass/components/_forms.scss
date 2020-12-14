@@ -33,6 +33,15 @@ form {
   &__box {
     width: 100%;
     position: relative;
+    .mat-form-field-underline{
+      border-bottom: 1px solid #a9a9a9!important;
+    }
+  }
+  &__search{
+    .mat-form-field-wrapper{
+      padding: 0;
+
+    }
   }
 
   &--login {
