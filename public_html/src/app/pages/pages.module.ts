@@ -10,11 +10,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterPatientComponent } from './register-patient/register-patient.component';
 import { UsersInformationComponent } from './users-information/users-information.component';
+import { AsignacionesPlanesComponent } from './asignaciones-planes/asignaciones-planes.component';
 
 
 
 @NgModule({
-  declarations: [HomepageComponent, LoginComponent, MedicalServicesComponent, DashboardComponent, RegisterPatientComponent, UsersInformationComponent],
+  declarations: [HomepageComponent, LoginComponent, MedicalServicesComponent, DashboardComponent, RegisterPatientComponent, UsersInformationComponent, AsignacionesPlanesComponent],
   imports: [
     CommonModule,
     MaterialModule,

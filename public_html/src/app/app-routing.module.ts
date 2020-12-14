@@ -7,6 +7,8 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterPatientComponent } from './pages/register-patient/register-patient.component';
 import { UsersInformationComponent } from './pages/users-information/users-information.component';
+import { AsignacionesPlanesComponent } from './pages/asignaciones-planes/asignaciones-planes.component';
+
 
 
 const routes: Routes = [
@@ -34,6 +36,10 @@ const routes: Routes = [
       {
         path:'user-information',
         component:UsersInformationComponent
+      },
+      {
+        path:'asignaciones-planes',
+        component:AsignacionesPlanesComponent
       }
     ]
   },
