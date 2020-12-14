@@ -21,6 +21,7 @@ app.use(require('./routes/rol'));
 app.use(require('./routes/login'));
 app.use(require('./routes/user'));
 app.use(require('./routes/aux_medico'));
+app.use(require('./routes/medicamento'));
 
 // Starting the server
 app.listen(app.get('port'), () => {
