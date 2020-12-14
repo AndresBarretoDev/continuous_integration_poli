@@ -1,1 +1,113 @@
-<p>medical-sehgjkjlk</p>
+
+<mat-horizontal-stepper class="stepperBox" [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="medicalInfo">
+      <form autocomplete="off" class="form form--stepper mt35" [formGroup]="medicalInfo" >
+        <ng-template matStepLabel>Datos del Medicamento</ng-template>
+        <mat-grid-list class="form__list" cols="2" rowHeight="60">
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Nombre Medicamento</mat-label>
+              <input matInput placeholder="Nombre medicamento" formControlName="nombre_medicamento" required>
+              <mat-error *ngIf="
+              medicalInfo.get('nombre_medicamento').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+          <!-- end form box  -->
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Laboratorio</mat-label>
+              <input matInput placeholder="laboratorio" formControlName="nombre_laboratorio" required>
+              <mat-error *ngIf="
+              medicalInfo.get('nombre_laboratorio').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>
+
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Fecha Vencimieto</mat-label>
+              <input matInput placeholder="fecha vencimiento" formControlName="fecha_vencimiento"              
+               required [matDatepicker]="picker"> 
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="
+              medicalInfo.get('fecha_vencimiento').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field> 
+          </mat-grid-tile>   
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Fecha de registro</mat-label>
+              <input matInput placeholder="fecha de registro" formControlName="fecha_registro"              
+               required [matDatepicker]="picker2"> 
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+              <mat-error *ngIf="
+              medicalInfo.get('fecha_registro').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field> 
+          </mat-grid-tile>             
+          <!-- form box  -->
+          <!-- form box  -->
+          <mat-grid-tile>
+            <mat-form-field class="form__box">
+              <mat-label>Dosis sugerida</mat-label>
+              <input type="text" matInput placeholder="dosis sugerida" formControlName="dosis_sugerida" required>
+              <mat-error *ngIf="
+              medicalInfo.get('dosis_sugerida').hasError('required')">
+               Campo Obligatorio
+              </mat-error>
+            </mat-form-field>
+          </mat-grid-tile>                                        
+        </mat-grid-list>
+        <div class="mt35">
+          <button mat-raised-button matStepperNext color="primary"
+           (click)="prepareResume(medicalInfo.value)">Continuar</button>
+        </div>
+      </form>
+    </mat-step>    
+    <mat-step>
+      <ng-template matStepLabel>Terminar</ng-template>
+      <div class="resumeBox">        
+        <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume ">
+          <p>Información del medicamento</p>
+          <li>
+            <span>Nombres medicamento</span>
+            <span>{{guardInfo.nombre_medicamento}} </span>
+          </li>
+          <li>
+            <span>Nombre laboratorio:</span>
+            <span>{{guardInfo.nombre_laboratorio}}</span>
+          </li>
+          <li>
+            <span>Fecha vencimiento:</span>
+            <span>{{guardInfo.fecha_vencimiento}}</span>
+          </li>
+          <li>
+            <span>Fecha vencimiento:</span>
+            <span>{{guardInfo.fecha_registro}}</span>
+          </li>
+          <li>
+            <span>Dosis sugerida:</span>
+            <span>{{guardInfo.dosis_sugerida}}</span>
+          </li>
+  
+        </ul>
+      </div>
+  
+  
+      <div>
+        <button mat-stroked-button matStepperPrevious class="mr10">Volver</button>
+        <button mat-raised-button color="warn" class="mr10" (click)="stepper.reset()">Reiniciar</button>
+        <button mat-raised-button type="button" color="primary" (click)="handleRegisterPatient(resumeRegister)">Terminar registro</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+  

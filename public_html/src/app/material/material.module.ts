@@ -10,8 +10,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
 
 
 const materialModules = [
@@ -28,7 +28,9 @@ const materialModules = [
   MatExpansionModule,
   MatStepperModule,
   MatGridListModule,
-  MatDialogModule
+  MatDialogModule,
+  MatDatepickerModule,
+  MatNativeDateModule
 ]
 @NgModule({
   declarations: [],
