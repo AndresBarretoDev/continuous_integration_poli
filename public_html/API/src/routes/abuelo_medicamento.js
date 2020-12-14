@@ -50,4 +50,16 @@ router.put('/abuesoft/abuelo_medicamento/:id', (req, res) => {
     });
 });
 
+router.delete('/abuesoft/abuelo_medicamento/:id', (req, res) => {
+    const {id} = req.params;
+    const delete_statement = `DELETE FROM abuelo_medicamento WHERE idabuelo_medicamento = ?`;
+    mysqlConnection.query(delete_statement, [id], (err, rows, fields) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
+        }
+    });
+});
+
 module.exports = router;
