@@ -37,4 +37,17 @@ router.post('/abuesoft/abuelo_medicamento/', (req, res) => {
     });
 });
 
+router.put('/abuesoft/abuelo_medicamento/:id', (req, res) => {
+    const {id} = req.params;
+    const {id_abuelo, id_medicamento, cantidad} = req.body;
+    const procedure_call = `CALL sp_add_edit_medicamento_abuelo(?, ?, ?, ?);`;
+    mysqlConnection.query(procedure_call, [id, id_abuelo, id_medicamento, cantidad], (err, rows, fields) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
+        }
+    });
+});
+
 module.exports = router;
