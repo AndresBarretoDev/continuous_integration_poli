@@ -1,0 +1,171 @@
+
+  <mat-horizontal-stepper class="stepperBox" [linear]="isLinear" #stepper>
+
+    <!-----------------------------------primer modulo----------------------------------->
+    <mat-step [stepControl]="CargarDatosAb">
+    <form autocomplete="off" class="form form--stepper mt35" [formGroup]="CargarDatosAb" >
+      <ng-template matStepLabel>Cargar datos</ng-template>
+      <mat-grid-list class="form__list" cols="2" rowHeight="60">
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Numero de Documento</mat-label>
+            <input type="number" matInput placeholder="Numero documento" formControlName="id_abuelo" required>
+            <mat-error *ngIf="CargarDatosAb.get('id_abuelo').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Primer nombre</mat-label>
+            <input matInput placeholder="Primer nombre" formControlName="PriNomAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Segundo nombre</mat-label>
+            <input matInput placeholder="Segundo nombre" formControlName="SegNomAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Primer apellido</mat-label>
+            <input matInput placeholder="Primer apellido" formControlName="PriApeAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Segundo apellido</mat-label>
+            <input matInput placeholder="Segundo apellido" formControlName="SegApeAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Edad</mat-label>
+            <input matInput placeholder="Edad" formControlName="edadAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Genero</mat-label>
+            <input matInput placeholder="Genero" formControlName="generoAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Estado</mat-label>
+            <input matInput placeholder="Estado" formControlName="estadoAbu" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+      </mat-grid-list>
+      <div class="mt35">
+        <button mat-raised-button matStepperNext color="primary" >Continuar</button>
+      </div>
+    </form>
+    </mat-step>
+
+    <!-----------------------------------segundo modulo----------------------------------->
+    <mat-step [stepControl]="planServ" label="Plan de servicios">
+      <form [formGroup]="planServ" class="form form--stepper mt35">
+        <mat-grid-list class="form__list" cols="1" rowHeight="60">
+           <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Seleccionar el plan</mat-label>
+            <mat-select formControlName="tipoPlan" required>
+              <mat-option *ngFor="let type of listPlan" [value]="type.value">
+                {{type.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="planServ.get('tipoPlan').hasError('required')">
+             Campo Obligatorio
+            </mat-error>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Descripcion</mat-label>
+            <input matInput placeholder="Descripcion" formControlName="DescSer" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        <!-- form box  -->
+        <mat-grid-tile>
+          <mat-form-field class="form__box">
+            <mat-label>Precio</mat-label>
+            <input matInput placeholder="Precio" formControlName="preServ" readonly="readonly" required>
+          </mat-form-field>
+        </mat-grid-tile>
+        <!-- end form box  -->
+        </mat-grid-list>
+        <div class="mt35">
+          <button mat-raised-button matStepperPrevious class="mr10">Regresar</button>
+          <button mat-raised-button matStepperNext color="primary" >Continuar</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-----------------------------------tercer modulo----------------------------------->
+    <mat-step [stepControl]="trataMedic" label="Tratamiento medico">
+      <form [formGroup]="trataMedic" class="form form--stepper mt35">
+        <mat-grid-list class="form__list" cols="1" rowHeight="60">
+      <!-- form box  -->
+      <mat-grid-tile>
+        <mat-form-field class="form__box">
+          <mat-label>Id medicamento</mat-label>
+          <input type="number" matInput placeholder="id medicamento" formControlName="id_medic" required>
+          <mat-error *ngIf="trataMedic.get('id_medic').hasError('required')">
+           Campo Obligatorio
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <!-- end form box  -->
+       <!-- form box  -->
+       <mat-grid-tile>
+        <mat-form-field class="form__box">
+          <mat-label>Nombre medicamento</mat-label>
+          <input matInput placeholder="Nombre medicamento" formControlName="nom_medic" readonly="readonly" required>
+        </mat-form-field>
+      </mat-grid-tile>
+      <!-- end form box  -->
+       <!-- form box  -->
+       <mat-grid-tile>
+        <mat-form-field class="form__box">
+          <mat-label>Cantidad a suministrar</mat-label>
+          <input matInput placeholder="Cantidad a suministrar" formControlName="cantSum" required>
+          <mat-error *ngIf="trataMedic.get('cantSum').hasError('required')">
+           Campo Obligatorio
+          </mat-error>
+        </mat-form-field>
+      </mat-grid-tile>
+      <!-- end form box  -->
+    </mat-grid-list>
+      </form>
+      <div class="mt35">
+        <button mat-raised-button matStepperPrevious class="mr10">Regresar</button>
+      </div>
+    </mat-step>
+
+    <!-----------------------------------modulo final----------------------------------->
+    <mat-step>
+      <ng-template matStepLabel>Terminar</ng-template>
+    </mat-step>
+
+  </mat-horizontal-stepper>
