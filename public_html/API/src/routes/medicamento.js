@@ -47,4 +47,16 @@ router.get('/abuesoft/medicamento/', (req, res) => {
     });
 });
 
+router.delete('/abuesoft/medicamento/:id', (req, res) => {
+    const {id} = req.params;
+    const delete_statement = `DELETE FROM medicamento WHERE idmedicamento = ?`;
+    mysqlConnection.query(delete_statement, [id], (err, rows, fields) => {
+        if(!err){
+            res.json({status: true});
+        }else{
+            res.json({status: false});
+        }
+    });
+});
+
 module.exports = router;
