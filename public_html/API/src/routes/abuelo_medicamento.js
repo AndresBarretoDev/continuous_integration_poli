@@ -5,7 +5,7 @@ const router = express.Router();
 const mysqlConnection = require('../database');
 
 router.get('/abuesoft/abuelo_medicamento/', (req, res) => {
-    const query_sentence = `SELECT d.idusuario, d.nombre, d.apellido, d.documento, c.idabuelo, 
+    const query_sentence = `SELECT d.idusuario, d.nombre nombre_usuario, d.apellido apellido_usuario, d.documento, c.idabuelo, 
             c.habitacion, c.edad, c.EPS, a.idmedicamento, a.nombre, a.laboratorio,
 	        a.dosis, b.idabuelo_medicamento, b.cantidad_medicamento
         FROM medicamento a
@@ -33,6 +33,7 @@ router.post('/abuesoft/abuelo_medicamento/', (req, res) => {
             res.json({status: true});
         }else{
             res.json({status: false});
+            console.log(err);
         }
     });
 });
