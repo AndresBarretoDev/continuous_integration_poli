@@ -54,11 +54,28 @@ export class UserAuthService {
  public getPatientUsers() {
     return this.http.get(`${this.urlPath}/abuesoft/user`);
   }
+ public getUsersEmployes() {
+    return this.http.get(`${this.urlPath}/abuesoft/aux_medico`);
+  }
   // REGISTER PATIENTS USERS
   registerPatients(params:any){
     console.log(params)
     return new Promise( (resolve, reject)=>{
       this.http.post(`${this.urlPath}/abuesoft/user`,params)
+      .toPromise()
+      .then(response =>{
+        console.log("response register", response)
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
+  // REGISTER EMPLOYES USERS
+  registerEmployes(params:any){
+    console.log(params)
+    return new Promise( (resolve, reject)=>{
+      this.http.post(`${this.urlPath}/abuesoft/aux_medico`,params)
       .toPromise()
       .then(response =>{
         console.log("response register", response)

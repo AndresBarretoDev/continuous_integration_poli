@@ -2,10 +2,10 @@
   <!-- top filter and button  -->
   <div class="dF jcSB fw-nW w100 mt35 mb25">
       <!-- button route create user  -->
-    <a routerLink="../register-patient" mat-stroked-button color="primary" class="dB mlA">
+    <button mat-stroked-button color="primary" class="dB mlA" (click)="openModalUser()">
       <mat-icon>person_add</mat-icon>
       Agregar usuario
-    </a>
+    </button>
     <!-- end button route create user  -->
   </div>
   <!-- end top filter and button  -->
@@ -27,37 +27,38 @@
     <table class="table" mat-table [dataSource]="dataSource" matSort matSortDirection="asc">
 
       <!-- ID Column -->
-      <ng-container matColumnDef="nombre_abuelo">
+      <ng-container matColumnDef="nombre">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombres </th>
-        <td mat-cell *matCellDef="let row"> {{row.nombre_abuelo}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.nombre}} </td>
       </ng-container>
 
       <!-- Name Column -->
-      <ng-container matColumnDef="apellido_abuelo">
+      <ng-container matColumnDef="apellido">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Apellidos </th>
-        <td mat-cell *matCellDef="let row"> {{row.apellido_abuelo}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.apellido}} </td>
       </ng-container>
       <!-- Name Column -->
-      <ng-container matColumnDef="tipo_doc_abuelo">
+      <ng-container matColumnDef="tipo_doc">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Documento </th>
-        <td mat-cell *matCellDef="let row"> {{row.tipo_doc_abuelo}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.tipo_doc}} </td>
       </ng-container>
-      <ng-container matColumnDef="doc_abuelo">
+      <ng-container matColumnDef="doc">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> N° Documento </th>
-        <td mat-cell *matCellDef="let row"> {{row.doc_abuelo}} </td>
+        <td mat-cell *matCellDef="let row"> {{row.doc}} </td>
       </ng-container>
-      <ng-container matColumnDef="habitacion">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Habitación </th>
-        <td mat-cell *matCellDef="let row"> {{row.habitacion}} </td>
+      <ng-container matColumnDef="tel">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Teléfono </th>
+        <td mat-cell *matCellDef="let row"> {{row.tel}} </td>
       </ng-container>
-      <ng-container matColumnDef="edad">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
-        <td mat-cell *matCellDef="let row"> {{row.edad}} </td>
+      <ng-container matColumnDef="direccion">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Direccion </th>
+        <td mat-cell *matCellDef="let row"> {{row.direccion}} </td>
       </ng-container>
-      <ng-container matColumnDef="EPS">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre Eps </th>
-        <td mat-cell *matCellDef="let row"> {{row.EPS}}</td>
+      <ng-container matColumnDef="correo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> correo </th>
+        <td mat-cell *matCellDef="let row"> {{row.correo}} </td>
       </ng-container>
+
       <!-- ACTIONS COLUMN  -->
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
@@ -67,14 +68,11 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openModalUser(row,'patient')">
+            <button mat-menu-item (click)="openModalUser(row)">
               <mat-icon color="primary">edit</mat-icon>
-              <span>Editar abuelo</span>
+              <span>Editar empleado</span>
             </button>
-            <button mat-menu-item (click)="openModalUser(row,'representant')">
-              <mat-icon color="accent">edit</mat-icon>
-              <span>Editar Representante</span>
-            </button>
+
             <button mat-menu-item>
               <mat-icon color="warn">person_remove</mat-icon>
               <span>Eliminar usuario</span>
@@ -102,7 +100,7 @@
 <section class="modal global-shadow" *ngIf="dialog">
   <div class="modal__overlay" (click)="closeDialog()"></div>
   <div class="modal__content">
-    <form autocomplete="off" class="form form--stepper" [formGroup]="patientForm" *ngIf="isPatient">
+    <form autocomplete="off" class="form form--stepper" [formGroup]="usersForm" >
       <!-- table caption  -->
       <h1 class="taC mb25 w100 bolder fs24">Editar Abuelo</h1>
       <!--End  table caption  -->
@@ -111,7 +109,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box  ">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombre_nono" >
+            <input matInput placeholder="Nombres" formControlName="nombre" >
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -119,7 +117,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos" formControlName="apellido_nono">
+            <input matInput placeholder="Apellidos" formControlName="apellido">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -127,7 +125,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Tipo de documento</mat-label>
-            <mat-select formControlName="tipo_doc_nono">
+            <mat-select formControlName="tipo_doc">
               <mat-option *ngFor="let type of listDoc" [value]="type.value">
                 {{type.name}}
               </mat-option>
@@ -139,31 +137,31 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Número de documento</mat-label>
-            <input type="number" matInput placeholder="Número de documento" formControlName="doc_nono">
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
-            <mat-label>Edad</mat-label>
-            <input type="number" matInput placeholder="Edad del paciente" formControlName="edad" required>
+            <mat-label>Teléfono</mat-label>
+            <input type="tel" matInput placeholder="Edad del paciente" formControlName="tel" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
-            <mat-label>Habitación</mat-label>
-            <input type="number" matInput placeholder="Número de habitación" formControlName="habitacion" required>
+            <mat-label>Dirección</mat-label>
+            <input type="text" matInput placeholder="Dirección" formControlName="direccion" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
         <!-- form box  -->
         <mat-grid-tile>
           <mat-form-field class="form__box">
-            <mat-label>Eps</mat-label>
-            <input type="text" matInput placeholder="Eps del paciente" formControlName="eps" required>
+            <mat-label>Correo Electrónico</mat-label>
+            <input type="email" matInput placeholder="Correo Electrónico" formControlName="correo" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -175,8 +173,8 @@
         </button>
         <button mat-raised-button
           type="button" color="primary"
-          (click)="updateInfoPatient(patientForm.value)">
-          Actualizar
+          (click)="handleUserRegister(usersForm.value)">
+          Registrar
         </button>
       </div>
     </form>

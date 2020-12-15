@@ -1,23 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { UserPatient } from 'src/app/interfaces/userPatient';
+import { UsersEmployes } from 'src/app/interfaces/userEmployes';
 import { UserAuthService } from '../../services/user-auth.service';
-let ELEMENT_DATA: UserPatient[];
+let ELEMENT_DATA: UsersEmployes[];
 @Component({
   selector: 'app-users-information',
   templateUrl: './users-information.component.html',
   styleUrls: ['./users-information.component.sass']
 })
 export class UsersInformationComponent implements OnInit {
-  displayedColumns: string[] = ['nombre_abuelo', 'apellido_abuelo', 'tipo_doc_abuelo', 'doc_abuelo', 'habitacion', 'edad', 'EPS', 'actions'];
-  dataSource = new MatTableDataSource < UserPatient > (ELEMENT_DATA);
-  patientForm: FormGroup;
-  representantForm: FormGroup;
+  displayedColumns: string[] = ['nombre', 'apellido', 'tipo_doc', 'doc','tel', 'direccion', 'correo', 'actions'];
+  dataSource = new MatTableDataSource < UsersEmployes > (ELEMENT_DATA);
+  usersForm: FormGroup;
   dialog: Boolean = false;
   listDoc: any[] = [];
   isPatient: Boolean = false;
   isRepresent: Boolean = false;
+
 
   @ViewChild(MatPaginator, {
     static: true
@@ -29,8 +29,7 @@ export class UsersInformationComponent implements OnInit {
   constructor(private userService: UserAuthService,
     private formBuilder: FormBuilder) {
     this.populateTable();
-    this.createFormDataPatient();
-    this.createFormDataRepresentant();
+    this.createFormUser();
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
@@ -54,9 +53,9 @@ export class UsersInformationComponent implements OnInit {
   }
   populateTable() {
     try {
-      const response = this.userService.getPatientUsers()
+      const response = this.userService.getUsersEmployes()
       response.subscribe(data => {
-        this.dataSource.data = data as UserPatient[];
+        this.dataSource.data = data as UsersEmployes[];
         console.log("response usersss", this.dataSource.data)
       });
 
@@ -73,38 +72,20 @@ export class UsersInformationComponent implements OnInit {
     }
   }
   // CREATE USERS FORMS
-  createFormDataPatient() {
-    this.patientForm = this.formBuilder.group({
-      nombre_nono: ['', Validators.required],
-      apellido_nono: ['', Validators.required],
-      tipo_doc_nono: ['', Validators.required],
-      doc_nono: ['', Validators.required],
-      edad: ['', Validators.required],
-      habitacion: ['', Validators.required],
-      eps: ['', Validators.required],
-    });
-    this.patientForm.controls['nombre_nono'].disable()
-    this.patientForm.controls['apellido_nono'].disable()
-    this.patientForm.controls['tipo_doc_nono'].disable()
-    this.patientForm.controls['doc_nono'].disable()
+  createFormUser() {
+    this.usersForm = this.formBuilder.group({
+      id:0,
+      nombre:['', Validators.required],
+      apellido:['', Validators.required],
+      tipo_doc:['', Validators.required],
+      doc:['', Validators.required],
+      tel:['', Validators.required],
+      direccion:['', Validators.required],
+      correo:['', Validators.required],
 
-  }
-  createFormDataRepresentant() {
-    this.representantForm = this.formBuilder.group({
-      nombre_rep: ['', Validators.required],
-      apellido_rep: ['', Validators.required],
-      tipo_doc_rep: ['', Validators.required],
-      doc_rep: ['', Validators.required],
-      direccion: ['', Validators.required],
-      correo: ['', Validators.required],
-      tel_rep: ['', Validators.required],
     });
-    this.representantForm.controls['nombre_rep'].disable()
-    this.representantForm.controls['apellido_rep'].disable()
-    this.representantForm.controls['tipo_doc_rep'].disable()
-    this.representantForm.controls['doc_rep'].disable()
-
   }
+
   // POPULATE FORMS WITH USERS DATA
   populateFormDataPatient(data: any) {
     const {
@@ -116,66 +97,36 @@ export class UsersInformationComponent implements OnInit {
       edad,
       EPS } = data;
 
-    this.patientForm.patchValue({
-      nombre_nono: nombre_abuelo,
-      apellido_nono: apellido_abuelo,
-      tipo_doc_nono: tipo_doc_abuelo,
-      doc_nono: doc_abuelo,
-      edad: edad,
-      habitacion: habitacion,
-      eps: EPS,
+    this.usersForm.patchValue({
+      nombre: nombre_abuelo,
+      apellido: apellido_abuelo,
+      tipo_doc: tipo_doc_abuelo,
+      doc: doc_abuelo,
+      tel: edad,
+      direccion: habitacion,
+      correo: EPS,
     })
   }
 
-  populateFormDataRepresentant(data: any) {
-    const {
-      nombre_repstn,
-      apellido_repstn,
-      tipo_doc_repstn,
-      doc_repstn,
-      direccion_repstn,
-      correo_repstn,
-      tel_repstn } = data;
 
-    this.representantForm.patchValue({
-      nombre_rep: nombre_repstn,
-      apellido_rep: apellido_repstn,
-      tipo_doc_rep: tipo_doc_repstn,
-      doc_rep: doc_repstn,
-      direccion: direccion_repstn,
-      correo: correo_repstn,
-      tel_rep: tel_repstn,
-    });
+  openModalUser(item) {
+    console.log("info", item)
 
-  }
-  openModalUser(item, user: string) {
-    if (user === 'patient') {
-      this.isPatient = true;
-      this.populateFormDataPatient(item);
-      console.log("PATIENT!!!!!")
-    } else if (user === 'representant') {
-      this.isRepresent = true;
-      this.populateFormDataRepresentant(item);
-      console.log("REPRESENTANT!!!!!")
-    }
     this.dialog = true;
 
-    // OPTIONS TO GENERATE FORMS DINAMICALLY -IN CONSTRUCTION-
-    // const test2 = Object.keys(item)
-    // console.log("item user arr", test2)
-    // const [nombre_abuelo, apellido_abuelo, tipo_doc_abuelo, doc_abuelo, habitacion, edad, EPS] = test2;
-    // console.log("arr keys", nombre_abuelo)
+
   }
-  updateInfoPatient(infopatient) {
+  handleUserRegister(infopatient) {
     console.log(infopatient)
-    this.closeDialog()
+    this.userService.registerEmployes(infopatient)
+    // this.closeDialog()
   }
   closeDialog() {
     this.dialog = false;
     this.isPatient = false;
     this.isRepresent = false;
-    this.patientForm.reset()
-    this.representantForm.reset()
+    // this.patientForm.reset()
+    // this.representantForm.reset()
   }
 
 }
