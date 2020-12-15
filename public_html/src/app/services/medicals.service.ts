@@ -21,6 +21,7 @@ export class MedicalsService {
       this.http.post(`${this.urlPath}/abuesoft/medicamento/`,params)
       .toPromise()
       .then(response =>{
+        console.log("response medical", response)
         resolve(response)
       }).catch(error=>{
         reject(error)

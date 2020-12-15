@@ -32,9 +32,9 @@
             <mat-form-field class="form__box">
               <mat-label>Fecha Vencimiento</mat-label>
               <input matInput placeholder="fecha vencimiento" formControlName="vencimiento"
-               required [matDatepicker]="picker">
+               required [matDatepicker]="picker" >
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
+              <mat-datepicker #picker ></mat-datepicker>
               <mat-error *ngIf="
               medicalInfo.get('vencimiento').hasError('required')">
                Campo Obligatorio
@@ -67,7 +67,7 @@
             </mat-form-field>
           </mat-grid-tile>
         </mat-grid-list>
-        <div class="mt35">
+        <div class="mt35 dF jcFE ">
           <button mat-raised-button matStepperNext color="primary"
            (click)="prepareResume(medicalInfo.value)">Continuar</button>
         </div>
@@ -77,25 +77,25 @@
       <ng-template matStepLabel>Terminar</ng-template>
       <div class="resumeBox">
         <ul class="resumeBox__list" *ngFor="let guardInfo of finalResume ">
-          <p>Información del medicamento</p>
+          <p class="resumeBox__title">Información del medicamento</p>
           <li>
-            <span>Nombres medicamento</span>
+            <span class="bolder">Nombres medicamento: </span>
             <span>{{guardInfo.nombre}} </span>
           </li>
           <li>
-            <span>Nombre laboratorio:</span>
+            <span class="bolder">Nombre laboratorio: </span>
             <span>{{guardInfo.laboratorio}}</span>
           </li>
           <li>
-            <span>Fecha vencimiento:</span>
-            <span>{{guardInfo.fecha}}</span>
+            <span class="bolder">Fecha vencimiento: </span>
+            <span>{{guardInfo.vencimiento}}</span>
           </li>
           <li>
-            <span>Fecha vencimiento:</span>
+            <span class="bolder">Fecha registro: </span>
             <span>{{guardInfo.registro}}</span>
           </li>
           <li>
-            <span>Dosis sugerida:</span>
+            <span class="bolder">Dosis sugerida: </span>
             <span>{{guardInfo.dosis}}</span>
           </li>
 
@@ -103,7 +103,7 @@
       </div>
 
 
-      <div>
+      <div class="dF jcFE mt40">
         <button mat-stroked-button matStepperPrevious class="mr10">Volver</button>
         <button mat-raised-button color="warn" class="mr10" (click)="stepper.reset()">Reiniciar</button>
         <button mat-raised-button type="button" color="primary" (click)="handleRegisterPatient(resumeRegister)">Terminar registro</button>

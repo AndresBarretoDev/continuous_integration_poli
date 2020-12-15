@@ -10,53 +10,51 @@ import * as moment from 'moment'; // add this 1 of 4
 })
 export class MedicalServicesComponent implements OnInit {
   isLinear:Boolean = true;
-  medicalInfo:FormGroup;  
-  resumeRegister:any;  
+  medicalInfo:FormGroup;
+  resumeRegister:any;
   finalResume:any;
-  
+
   constructor(private formBuilder:FormBuilder,
-    private  medicalServi:MedicalsService) {       
+    private  medicalServi:MedicalsService) {
     }
 
   ngOnInit() {
-  
+
     this.medicalInfo = this.formBuilder.group({
       id: ['0'],
       nombre: ['', Validators.required],
       laboratorio: ['', Validators.required],
-      vencimiento: [moment().format("DD/MM/YYYY"), Validators.required],
-      registro: [moment().format("DD/MM/YYYY"), Validators.required],
+      vencimiento: ['', Validators.required],
+      registro: ['', Validators.required],
       dosis: ['', Validators.required]
-    });    
+    });
   }
-  prepareResume(abuelo:any){
-    if (this.medicalInfo.invalid) {  
+  prepareResume(infoMedical:any){
+
+    console.log("infommedical ====> ",infoMedical)
+    if (this.medicalInfo.invalid) {
       return
     }
-
+    let {vencimiento, registro } = infoMedical
+    let formatVen = moment(vencimiento).format("YYYY/MM/DD"),
+       formatReg = moment(registro).format("YYYY/MM/DD")
+    const newObject = {...infoMedical, vencimiento:formatVen, registro:formatReg}
     this.resumeRegister = {
-      abuelo      
+      ...infoMedical, vencimiento:formatVen, registro:formatReg
     }
-    this.finalResume = Object.values(this.resumeRegister)
+
+    console.log("final register ====> ",this.resumeRegister)
+
+    this.finalResume = Object.values({newObject})
     console.log("final resume:===",this.finalResume)
 
 
     // console.log("resume: ",this.resumeRegister)
   }
   handleRegisterPatient(info){
-    console.log("resume to send: ", info)
-    let paramsTest = {
-      "Meicamento": {
-        "id": "0",
-        "nombre": info.nombre,
-        "laboratorio": info.laboratorio,
-        "vencimiento": info.vencimiento,
-        "registro": info.registro,
-        "dosis": info.dosis        
-        }
-  }
-  console.log("resume to send test!!!: ", paramsTest)  
+  console.log("resume to send test!!!: ", info)
   this.medicalServi.registerPatients(info)
   }
+
 
 }
