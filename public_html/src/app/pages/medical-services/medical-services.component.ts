@@ -21,11 +21,12 @@ export class MedicalServicesComponent implements OnInit {
   ngOnInit() {
   
     this.medicalInfo = this.formBuilder.group({
-      nombre_medicamento: ['', Validators.required],
-      nombre_laboratorio: ['', Validators.required],
-      fecha_vencimiento: [moment().format("DD/MM/YYYY"), Validators.required],
-      fecha_registro: [moment().format("DD/MM/YYYY"), Validators.required],
-      dosis_sugerida: ['', Validators.required]
+      id: ['0'],
+      nombre: ['', Validators.required],
+      laboratorio: ['', Validators.required],
+      vencimiento: [moment().format("DD/MM/YYYY"), Validators.required],
+      registro: [moment().format("DD/MM/YYYY"), Validators.required],
+      dosis: ['', Validators.required]
     });    
   }
   prepareResume(abuelo:any){
@@ -45,26 +46,17 @@ export class MedicalServicesComponent implements OnInit {
   handleRegisterPatient(info){
     console.log("resume to send: ", info)
     let paramsTest = {
-      "representante": {
-        "nombre_rep": "pedro",
-        "apellido_rep": "Diaz",
-        "tipo_doc_rep": "CC",
-        "doc_rep": "77777777",
-        "tel_rep": 45454522,
-        "direccion": "Cra 78 sur # 45 h 23",
-        "correo": "representante@test.com"
-        },
-        "abuelo": {
-        "nombre_nono": "marta ",
-        "apellido_nono": "lopez",
-        "tipo_doc_nono": "CC",
-        "doc_nono": "11112222333",
-        "habitacion": 201,
-        "edad": 76,
-        "eps": "Compensar"
+      "Meicamento": {
+        "id": "0",
+        "nombre": info.nombre,
+        "laboratorio": info.laboratorio,
+        "vencimiento": info.vencimiento,
+        "registro": info.registro,
+        "dosis": info.dosis        
         }
   }
   console.log("resume to send test!!!: ", paramsTest)  
+  this.medicalServi.registerPatients(info)
   }
 
 }

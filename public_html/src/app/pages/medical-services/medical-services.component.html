@@ -8,9 +8,9 @@
           <mat-grid-tile>
             <mat-form-field class="form__box">
               <mat-label>Nombre Medicamento</mat-label>
-              <input matInput placeholder="Nombre medicamento" formControlName="nombre_medicamento" required>
+              <input matInput placeholder="Nombre medicamento" formControlName="nombre" required>
               <mat-error *ngIf="
-              medicalInfo.get('nombre_medicamento').hasError('required')">
+              medicalInfo.get('nombre').hasError('required')">
                Campo Obligatorio
               </mat-error>
             </mat-form-field>
@@ -20,9 +20,9 @@
           <mat-grid-tile>
             <mat-form-field class="form__box">
               <mat-label>Laboratorio</mat-label>
-              <input matInput placeholder="laboratorio" formControlName="nombre_laboratorio" required>
+              <input matInput placeholder="laboratorio" formControlName="laboratorio" required>
               <mat-error *ngIf="
-              medicalInfo.get('nombre_laboratorio').hasError('required')">
+              medicalInfo.get('laboratorio').hasError('required')">
                Campo Obligatorio
               </mat-error>
             </mat-form-field>
@@ -31,12 +31,12 @@
           <mat-grid-tile>
             <mat-form-field class="form__box">
               <mat-label>Fecha Vencimiento</mat-label>
-              <input matInput placeholder="fecha vencimiento" formControlName="fecha_vencimiento"
+              <input matInput placeholder="fecha vencimiento" formControlName="vencimiento"
                required [matDatepicker]="picker">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               <mat-error *ngIf="
-              medicalInfo.get('fecha_vencimiento').hasError('required')">
+              medicalInfo.get('vencimiento').hasError('required')">
                Campo Obligatorio
               </mat-error>
             </mat-form-field>
@@ -44,12 +44,12 @@
           <mat-grid-tile>
             <mat-form-field class="form__box">
               <mat-label>Fecha de registro</mat-label>
-              <input matInput placeholder="fecha de registro" formControlName="fecha_registro"
+              <input matInput placeholder="fecha de registro" formControlName="registro"
                required [matDatepicker]="picker2">
               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
               <mat-datepicker #picker2></mat-datepicker>
               <mat-error *ngIf="
-              medicalInfo.get('fecha_registro').hasError('required')">
+              medicalInfo.get('registro').hasError('required')">
                Campo Obligatorio
               </mat-error>
             </mat-form-field>
@@ -59,9 +59,9 @@
           <mat-grid-tile>
             <mat-form-field class="form__box">
               <mat-label>Dosis sugerida</mat-label>
-              <input type="text" matInput placeholder="dosis sugerida" formControlName="dosis_sugerida" required>
+              <input type="text" matInput placeholder="dosis sugerida" formControlName="dosis" required>
               <mat-error *ngIf="
-              medicalInfo.get('dosis_sugerida').hasError('required')">
+              medicalInfo.get('dosis').hasError('required')">
                Campo Obligatorio
               </mat-error>
             </mat-form-field>
@@ -80,23 +80,23 @@
           <p>Información del medicamento</p>
           <li>
             <span>Nombres medicamento</span>
-            <span>{{guardInfo.nombre_medicamento}} </span>
+            <span>{{guardInfo.nombre}} </span>
           </li>
           <li>
             <span>Nombre laboratorio:</span>
-            <span>{{guardInfo.nombre_laboratorio}}</span>
+            <span>{{guardInfo.laboratorio}}</span>
           </li>
           <li>
             <span>Fecha vencimiento:</span>
-            <span>{{guardInfo.fecha_vencimiento}}</span>
+            <span>{{guardInfo.fecha}}</span>
           </li>
           <li>
             <span>Fecha vencimiento:</span>
-            <span>{{guardInfo.fecha_registro}}</span>
+            <span>{{guardInfo.registro}}</span>
           </li>
           <li>
             <span>Dosis sugerida:</span>
-            <span>{{guardInfo.dosis_sugerida}}</span>
+            <span>{{guardInfo.dosis}}</span>
           </li>
 
         </ul>
