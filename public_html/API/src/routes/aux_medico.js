@@ -36,7 +36,7 @@ router.get('/abuesoft/aux_medico', (req, res) => {
         FROM usuario a
         JOIN rol b
 		    ON a.idrol = b.idrol
-        WHERE b.nombre = "auxiliar médico";`;
+        WHERE b.nombre = "auxiliar_medico";`;
     mysqlConnection.query(query, (err, rows, fields) => {
         if(!err){
             res.json(rows);

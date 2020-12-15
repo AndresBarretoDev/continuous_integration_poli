@@ -160,12 +160,10 @@ export class HomepageComponent implements OnInit {
       this.isPatient = true;
       this.userType = user
       this.populateFormDataPatient(item);
-      console.log("PATIENT!!!!!", this.userID, this.userType)
     } else if (user === 'representant') {
       this.isRepresent = true;
       this.userType = user
       this.populateFormDataRepresentant(item);
-      console.log("REPRESENTANT!!!!!", this.userID, this.userType)
     }
     this.dialog = true;
 
@@ -176,7 +174,6 @@ export class HomepageComponent implements OnInit {
     // console.log("arr keys", nombre_abuelo)
   }
   async updateInfoPatient(infopatient) {
-    console.log(infopatient)
     this.closeDialog()
     try {
       const responseUpdate = await this.userService.updateUserInformation(this.userID,infopatient,this.userType)
@@ -192,7 +189,6 @@ export class HomepageComponent implements OnInit {
   async deleteUser(userID){
     try {
       const responseDel = await this.userService.deleteUser(userID);
-      console.log("response del", responseDel)
       if (responseDel) {
         this.populateTable();
       }

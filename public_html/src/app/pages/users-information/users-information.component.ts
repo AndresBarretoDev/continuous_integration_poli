@@ -10,14 +10,11 @@ let ELEMENT_DATA: UsersEmployes[];
   styleUrls: ['./users-information.component.sass']
 })
 export class UsersInformationComponent implements OnInit {
-  displayedColumns: string[] = ['nombre', 'apellido', 'tipo_doc', 'doc','tel', 'direccion', 'correo', 'actions'];
+  displayedColumns: string[] = ['nombre', 'apellido', 'tipo_doc', 'documento','telefono', 'direccion', 'correo', 'actions'];
   dataSource = new MatTableDataSource < UsersEmployes > (ELEMENT_DATA);
   usersForm: FormGroup;
   dialog: Boolean = false;
   listDoc: any[] = [];
-  isPatient: Boolean = false;
-  isRepresent: Boolean = false;
-
 
   @ViewChild(MatPaginator, {
     static: true
@@ -87,46 +84,56 @@ export class UsersInformationComponent implements OnInit {
   }
 
   // POPULATE FORMS WITH USERS DATA
-  populateFormDataPatient(data: any) {
+  populateFormDataEmploye(data: any) {
     const {
-      nombre_abuelo,
-      apellido_abuelo,
-      tipo_doc_abuelo,
-      doc_abuelo,
-      habitacion,
-      edad,
-      EPS } = data;
+      nombre,
+      apellido,
+      tipo_doc,
+      documento,
+      telefono,
+      direccion,
+      correo } = data;
 
     this.usersForm.patchValue({
-      nombre: nombre_abuelo,
-      apellido: apellido_abuelo,
-      tipo_doc: tipo_doc_abuelo,
-      doc: doc_abuelo,
-      tel: edad,
-      direccion: habitacion,
-      correo: EPS,
+      nombre: nombre,
+      apellido: apellido,
+      tipo_doc: tipo_doc,
+      doc: documento,
+      tel: telefono,
+      direccion: direccion,
+      correo: correo,
     })
   }
 
 
+  addEmployes() {
+    this.dialog = true;
+  }
   openModalUser(item) {
     console.log("info", item)
-
+    this.populateFormDataEmploye(item)
     this.dialog = true;
-
-
   }
-  handleUserRegister(infopatient) {
+  async handleUserRegister(infopatient) {
+    console.log({infopatient})
+    if (this.usersForm.invalid) {
+      return
+    }
     console.log(infopatient)
-    this.userService.registerEmployes(infopatient)
-    // this.closeDialog()
+    try {
+      const responseRegister = await this.userService.registerEmployes(infopatient);
+      if (responseRegister) {
+        this.populateTable();
+      }
+
+    } catch (error) {
+
+    }
+    this.closeDialog()
   }
   closeDialog() {
     this.dialog = false;
-    this.isPatient = false;
-    this.isRepresent = false;
-    // this.patientForm.reset()
-    // this.representantForm.reset()
+    this.usersForm.reset()
   }
 
 }

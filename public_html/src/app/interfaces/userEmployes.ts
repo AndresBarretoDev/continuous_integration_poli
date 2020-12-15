@@ -3,8 +3,8 @@ export interface UsersEmployes {
   nombre:    string;
   apellido:  string;
   tipo_doc:  string;
-  doc:       string;
-  tel:       number;
+  documento:       string;
+  telefono:       number;
   direccion: string;
   correo:    string;
 }
