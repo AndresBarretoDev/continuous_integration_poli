@@ -26,11 +26,11 @@ export class NavigationComponent implements OnInit {
         route:'medical',
         icon:'folder'
       },
-      {
-        name:'Asignaciones y planes',
-        route:'asignaciones-planes',
-        icon:'card_travel'
-      },
+      // {
+      //   name:'Asignaciones y planes',
+      //   route:'asignaciones-planes',
+      //   icon:'card_travel'
+      // },
     ]
   }
 showInfo(link){

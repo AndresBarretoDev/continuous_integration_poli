@@ -10,11 +10,10 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule} from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
-
-
-
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const materialModules = [
   MatToolbarModule,
@@ -31,7 +30,10 @@ const materialModules = [
   MatStepperModule,
   MatGridListModule,
   MatDialogModule,
-  MatMenuModule
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatMenuModule,
+  MatSnackBarModule
 ]
 @NgModule({
   declarations: [],

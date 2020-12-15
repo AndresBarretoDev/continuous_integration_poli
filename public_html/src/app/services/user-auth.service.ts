@@ -68,6 +68,31 @@ export class UserAuthService {
       })
     })
   }
+  updateUserInformation(userID, params:any,userType:string){
+    let userApi = '';
+    (userType == 'patient') ? userApi = 'user' : userApi = 'user_repsnt'
+    return new Promise( (resolve, reject)=>{
+      this.http.put(`${this.urlPath}/abuesoft/${userApi}/${userID}`,params)
+      .toPromise()
+      .then(response =>{
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
+  deleteUser(userID){
+    return new Promise( (resolve, reject)=>{
+      this.http.delete(`${this.urlPath}/abuesoft/user/${userID}`)
+      .toPromise()
+      .then(response =>{
+        console.log("aresponse delete", response)
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
 
   isAuth(){
     return true

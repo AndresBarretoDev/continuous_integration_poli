@@ -67,15 +67,15 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openModalUser(row,'patient')">
+            <button mat-menu-item (click)="openModalUser(row,row.id_abuelo,'patient')">
               <mat-icon color="primary">edit</mat-icon>
               <span>Editar abuelo</span>
             </button>
-            <button mat-menu-item (click)="openModalUser(row,'representant')">
+            <button mat-menu-item (click)="openModalUser(row,row.id_repsnt,'representant')">
               <mat-icon color="accent">edit</mat-icon>
               <span>Editar Representante</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item (click)="deleteUser(row.id_abuelo)">
               <mat-icon color="warn">person_remove</mat-icon>
               <span>Eliminar usuario</span>
             </button>
@@ -111,7 +111,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box  ">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombre_nono" >
+            <input matInput placeholder="Nombres" formControlName="nombre" >
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -119,7 +119,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos" formControlName="apellido_nono">
+            <input matInput placeholder="Apellidos" formControlName="apellido">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -127,7 +127,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Tipo de documento</mat-label>
-            <mat-select formControlName="tipo_doc_nono">
+            <mat-select formControlName="tipo_doc">
               <mat-option *ngFor="let type of listDoc" [value]="type.value">
                 {{type.name}}
               </mat-option>
@@ -139,7 +139,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Número de documento</mat-label>
-            <input type="number" matInput placeholder="Número de documento" formControlName="doc_nono">
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -189,7 +189,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box  ">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombre_rep" >
+            <input matInput placeholder="Nombres" formControlName="nombre" >
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -197,7 +197,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Apellidos</mat-label>
-            <input matInput placeholder="Apellidos" formControlName="apellido_rep">
+            <input matInput placeholder="Apellidos" formControlName="apellido">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -205,7 +205,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Tipo de documento</mat-label>
-            <mat-select formControlName="tipo_doc_rep">
+            <mat-select formControlName="tipo_doc">
               <mat-option *ngFor="let type of listDoc" [value]="type.value">
                 {{type.name}}
               </mat-option>
@@ -217,7 +217,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box ">
             <mat-label>Número de documento</mat-label>
-            <input type="number" matInput placeholder="Número de documento" formControlName="doc_rep">
+            <input type="number" matInput placeholder="Número de documento" formControlName="doc">
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->
@@ -241,7 +241,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Teléfono</mat-label>
-            <input type="text" matInput placeholder="Teléfono" formControlName="tel_rep" required>
+            <input type="text" matInput placeholder="Teléfono" formControlName="telefono" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- form box  -->

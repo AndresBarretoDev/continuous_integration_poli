@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatSnackBar } from '@angular/material';
 import { MatTableDataSource } from '@angular/material/table';
 import { UserAuthService } from '../../services/user-auth.service';
 import { UserPatient } from '../../interfaces/userPatient';
@@ -21,6 +21,8 @@ export class HomepageComponent implements OnInit {
   listDoc: any[] = [];
   isPatient: Boolean = false;
   isRepresent: Boolean = false;
+  userID:Number = 0;
+  userType=''
 
   @ViewChild(MatPaginator, {
     static: true
@@ -30,7 +32,8 @@ export class HomepageComponent implements OnInit {
   }) sort: MatSort;
 
   constructor(private userService: UserAuthService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private snackbar:MatSnackBar) {
     this.populateTable();
     this.createFormDataPatient();
     this.createFormDataRepresentant();
@@ -78,34 +81,34 @@ export class HomepageComponent implements OnInit {
   // CREATE USERS FORMS
   createFormDataPatient() {
     this.patientForm = this.formBuilder.group({
-      nombre_nono: ['', Validators.required],
-      apellido_nono: ['', Validators.required],
-      tipo_doc_nono: ['', Validators.required],
-      doc_nono: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      tipo_doc: ['', Validators.required],
+      doc: ['', Validators.required],
       edad: ['', Validators.required],
       habitacion: ['', Validators.required],
       eps: ['', Validators.required],
     });
-    this.patientForm.controls['nombre_nono'].disable()
-    this.patientForm.controls['apellido_nono'].disable()
-    this.patientForm.controls['tipo_doc_nono'].disable()
-    this.patientForm.controls['doc_nono'].disable()
+    // this.patientForm.controls['nombre_nono'].disable()
+    // this.patientForm.controls['apellido_nono'].disable()
+    // this.patientForm.controls['tipo_doc_nono'].disable()
+    // this.patientForm.controls['doc_nono'].disable()
 
   }
   createFormDataRepresentant() {
     this.representantForm = this.formBuilder.group({
-      nombre_rep: ['', Validators.required],
-      apellido_rep: ['', Validators.required],
-      tipo_doc_rep: ['', Validators.required],
-      doc_rep: ['', Validators.required],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      tipo_doc: ['', Validators.required],
+      doc: ['', Validators.required],
       direccion: ['', Validators.required],
       correo: ['', Validators.required],
-      tel_rep: ['', Validators.required],
+      telefono: ['', Validators.required],
     });
-    this.representantForm.controls['nombre_rep'].disable()
-    this.representantForm.controls['apellido_rep'].disable()
-    this.representantForm.controls['tipo_doc_rep'].disable()
-    this.representantForm.controls['doc_rep'].disable()
+    // this.representantForm.controls['nombre_rep'].disable()
+    // this.representantForm.controls['apellido_rep'].disable()
+    // this.representantForm.controls['tipo_doc_rep'].disable()
+    // this.representantForm.controls['doc_rep'].disable()
 
   }
   // POPULATE FORMS WITH USERS DATA
@@ -120,10 +123,10 @@ export class HomepageComponent implements OnInit {
       EPS } = data;
 
     this.patientForm.patchValue({
-      nombre_nono: nombre_abuelo,
-      apellido_nono: apellido_abuelo,
-      tipo_doc_nono: tipo_doc_abuelo,
-      doc_nono: doc_abuelo,
+      nombre: nombre_abuelo,
+      apellido: apellido_abuelo,
+      tipo_doc: tipo_doc_abuelo,
+      doc: doc_abuelo,
       edad: edad,
       habitacion: habitacion,
       eps: EPS,
@@ -141,25 +144,28 @@ export class HomepageComponent implements OnInit {
       tel_repstn } = data;
 
     this.representantForm.patchValue({
-      nombre_rep: nombre_repstn,
-      apellido_rep: apellido_repstn,
-      tipo_doc_rep: tipo_doc_repstn,
-      doc_rep: doc_repstn,
+      nombre: nombre_repstn,
+      apellido: apellido_repstn,
+      tipo_doc: tipo_doc_repstn,
+      doc: doc_repstn,
       direccion: direccion_repstn,
       correo: correo_repstn,
-      tel_rep: tel_repstn,
+      telefono: tel_repstn,
     });
 
   }
-  openModalUser(item, user: string) {
+  openModalUser(item, userId,user: string) {
+    this.userID = userId
     if (user === 'patient') {
       this.isPatient = true;
+      this.userType = user
       this.populateFormDataPatient(item);
-      console.log("PATIENT!!!!!")
+      console.log("PATIENT!!!!!", this.userID, this.userType)
     } else if (user === 'representant') {
       this.isRepresent = true;
+      this.userType = user
       this.populateFormDataRepresentant(item);
-      console.log("REPRESENTANT!!!!!")
+      console.log("REPRESENTANT!!!!!", this.userID, this.userType)
     }
     this.dialog = true;
 
@@ -169,9 +175,31 @@ export class HomepageComponent implements OnInit {
     // const [nombre_abuelo, apellido_abuelo, tipo_doc_abuelo, doc_abuelo, habitacion, edad, EPS] = test2;
     // console.log("arr keys", nombre_abuelo)
   }
-  updateInfoPatient(infopatient) {
+  async updateInfoPatient(infopatient) {
     console.log(infopatient)
     this.closeDialog()
+    try {
+      const responseUpdate = await this.userService.updateUserInformation(this.userID,infopatient,this.userType)
+      if (responseUpdate) {
+        this.populateTable();
+        this.openSnackBar("actualizado", "prueba")
+      }
+    } catch (error) {
+      alert("algo salio mal al actualizar el usuario")
+
+    }
+  }
+  async deleteUser(userID){
+    try {
+      const responseDel = await this.userService.deleteUser(userID);
+      console.log("response del", responseDel)
+      if (responseDel) {
+        this.populateTable();
+      }
+
+    } catch (error) {
+      alert("algo salio mal al eliminar el usuario")
+    }
   }
   closeDialog() {
     this.dialog = false;
@@ -179,5 +207,10 @@ export class HomepageComponent implements OnInit {
     this.isRepresent = false;
     this.patientForm.reset()
     this.representantForm.reset()
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackbar.open(message, action, {
+      duration: 4000,
+    });
   }
 }
