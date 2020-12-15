@@ -24,15 +24,26 @@ export class AsignacionesPlanesComponent implements OnInit {
   ngOnInit() {
     this.CargarDatosAb = this.formBuilder.group({
       id_abuelo: ['', Validators.required],
+      PriNomAbu: ['a'],
+      SegNomAbu: ['a'],
+      PriApeAbu: ['a'],
+      SegApeAbu: ['a'],
+      edadAbu: ['a'],
+      generoAbu: ['a'],
+      estadoAbu: ['a'],
     });
 
     this.planServ = this.formBuilder.group({
       tipoPlan: ['', Validators.required],
+      DescSer: ['a'],
+      preServ: ['a'],
     });
 
     this.trataMedic = this.formBuilder.group({
       id_medic: ['', Validators.required],
+      nom_medic: ['a'],
       cantSum: ['', Validators.required],
+
     });
 
     // fill type planes select

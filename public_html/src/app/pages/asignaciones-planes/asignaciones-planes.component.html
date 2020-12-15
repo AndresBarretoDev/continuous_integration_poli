@@ -21,7 +21,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Primer nombre</mat-label>
-            <input matInput placeholder="Primer nombre" formControlName="PriNomAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Primer nombre" formControlName="PriNomAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -29,7 +29,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Segundo nombre</mat-label>
-            <input matInput placeholder="Segundo nombre" formControlName="SegNomAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Segundo nombre" formControlName="SegNomAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -37,7 +37,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Primer apellido</mat-label>
-            <input matInput placeholder="Primer apellido" formControlName="PriApeAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Primer apellido" formControlName="PriApeAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -45,7 +45,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Segundo apellido</mat-label>
-            <input matInput placeholder="Segundo apellido" formControlName="SegApeAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Segundo apellido" formControlName="SegApeAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -53,7 +53,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Edad</mat-label>
-            <input matInput placeholder="Edad" formControlName="edadAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Edad" formControlName="edadAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -61,7 +61,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Genero</mat-label>
-            <input matInput placeholder="Genero" formControlName="generoAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Genero" formControlName="generoAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -69,7 +69,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Estado</mat-label>
-            <input matInput placeholder="Estado" formControlName="estadoAbu" readonly="readonly" required>
+            <input type="text" matInput placeholder="Estado" formControlName="estadoAbu" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -102,7 +102,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Descripcion</mat-label>
-            <input matInput placeholder="Descripcion" formControlName="DescSer" readonly="readonly" required>
+            <input type="text" matInput placeholder="Descripcion" formControlName="DescSer" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -110,7 +110,7 @@
         <mat-grid-tile>
           <mat-form-field class="form__box">
             <mat-label>Precio</mat-label>
-            <input matInput placeholder="Precio" formControlName="preServ" readonly="readonly" required>
+            <input type="number" matInput placeholder="Precio" formControlName="preServ" readonly="readonly" required>
           </mat-form-field>
         </mat-grid-tile>
         <!-- end form box  -->
@@ -141,7 +141,7 @@
        <mat-grid-tile>
         <mat-form-field class="form__box">
           <mat-label>Nombre medicamento</mat-label>
-          <input matInput placeholder="Nombre medicamento" formControlName="nom_medic" readonly="readonly" required>
+          <input type="text" matInput placeholder="Nombre medicamento" formControlName="nom_medic" readonly="readonly" required>
         </mat-form-field>
       </mat-grid-tile>
       <!-- end form box  -->
@@ -149,7 +149,7 @@
        <mat-grid-tile>
         <mat-form-field class="form__box">
           <mat-label>Cantidad a suministrar</mat-label>
-          <input matInput placeholder="Cantidad a suministrar" formControlName="cantSum" required>
+          <input type="text" matInput placeholder="Cantidad a suministrar" formControlName="cantSum" required>
           <mat-error *ngIf="trataMedic.get('cantSum').hasError('required')">
            Campo Obligatorio
           </mat-error>
