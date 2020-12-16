@@ -85,6 +85,34 @@ export class UserAuthService {
       })
     })
   }
+  // UPDATE EMPLOYES USERS
+  updateEmployes(userID:any,params:any){
+    console.log("METOD SERVICE  ",{params, userID})
+    return new Promise( (resolve, reject)=>{
+      this.http.put(`${this.urlPath}/abuesoft/aux_medico/${userID}`,params)
+      .toPromise()
+      .then(response =>{
+        console.log("response UPDATE", response)
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
+  // DELETE EMPLOYES
+  deleteEmployes(userID){
+    return new Promise( (resolve, reject)=>{
+      this.http.delete(`${this.urlPath}/abuesoft/aux_medico/${userID}`)
+      .toPromise()
+      .then(response =>{
+        console.log("aresponse delete", response)
+        resolve(response)
+      }).catch(error=>{
+        reject(error)
+      })
+    })
+  }
+  // UPDATE USERS INFORMATION
   updateUserInformation(userID, params:any,userType:string){
     let userApi = '';
     (userType == 'patient') ? userApi = 'user' : userApi = 'user_repsnt'

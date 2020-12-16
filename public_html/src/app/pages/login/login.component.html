@@ -6,7 +6,8 @@
     </div>
     <div class="fullBox__form">
 
-      <form [formGroup]="loginForm"  autocomplete="off" class="form form--login" (ngSubmit)="handleLogin(loginForm.value)">
+      <form [formGroup]="loginForm"  autocomplete="off" class="form form--login"
+        (ngSubmit)="handleLogin(loginForm.value)">
         <h1 class="form__title taC">Login</h1>
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>

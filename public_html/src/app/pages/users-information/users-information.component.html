@@ -68,12 +68,12 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item (click)="openModalUser(row)">
+            <button mat-menu-item (click)="openModalUser(row, row.idusuario)">
               <mat-icon color="primary">edit</mat-icon>
               <span>Editar empleado</span>
             </button>
 
-            <button mat-menu-item>
+            <button mat-menu-item (click)="handleDeleteUser(row.idusuario)">
               <mat-icon color="warn">person_remove</mat-icon>
               <span>Eliminar usuario</span>
             </button>
@@ -102,7 +102,7 @@
   <div class="modal__content">
     <form autocomplete="off" class="form form--stepper" [formGroup]="usersForm" >
       <!-- table caption  -->
-      <h1 class="taC mb25 w100 bolder fs24">Editar Abuelo</h1>
+      <h1 class="taC mb25 w100 bolder fs24">{{toggleTitle}}</h1>
       <!--End  table caption  -->
       <mat-grid-list class="form__list" cols="2" rowHeight="60">
         <!-- form box  -->
@@ -171,11 +171,20 @@
         class="mr10" (click)="closeDialog()">
           Cancelar
         </button>
-        <button mat-raised-button
+        <button mat-raised-button *ngIf="isAddUser; else isUpdateUser"
           type="submit" color="primary"
           (click)="handleUserRegister(usersForm.value)">
           Registrar
         </button>
+
+        <ng-template #isUpdateUser>
+          <button mat-raised-button
+            type="submit" color="warn"
+            (click)="handleUserUpdate(usersForm.value)">
+            Actualizar
+        </button>
+        </ng-template>
+
       </div>
     </form>
 

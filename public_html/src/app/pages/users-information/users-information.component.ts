@@ -15,6 +15,9 @@ export class UsersInformationComponent implements OnInit {
   usersForm: FormGroup;
   dialog: Boolean = false;
   listDoc: any[] = [];
+  toggleTitle='Agregar usuario'
+  isAddUser: Boolean = true;
+  userID:any;
 
   @ViewChild(MatPaginator, {
     static: true
@@ -95,6 +98,7 @@ export class UsersInformationComponent implements OnInit {
       correo } = data;
 
     this.usersForm.patchValue({
+      id:0,
       nombre: nombre,
       apellido: apellido,
       tipo_doc: tipo_doc,
@@ -108,18 +112,22 @@ export class UsersInformationComponent implements OnInit {
 
   addEmployes() {
     this.dialog = true;
+    this.toggleTitle = 'Agregar usuario';
   }
-  openModalUser(item) {
-    console.log("info", item)
+  openModalUser(item, userId) {
+    console.log("info", item, userId)
     this.populateFormDataEmploye(item)
     this.dialog = true;
+    this.toggleTitle = 'Editar usuario';
+    this.isAddUser = false;
+    this.userID = userId
+
   }
   async handleUserRegister(infopatient) {
-    console.log({infopatient})
     if (this.usersForm.invalid) {
       return
     }
-    console.log(infopatient)
+    console.log({infopatient})
     try {
       const responseRegister = await this.userService.registerEmployes(infopatient);
       if (responseRegister) {
@@ -131,9 +139,43 @@ export class UsersInformationComponent implements OnInit {
     }
     this.closeDialog()
   }
+  // UPDATE USER
+  async handleUserUpdate(infopatient,) {
+    console.log("INFO UPDATE ::: ",{infopatient})
+    if (this.usersForm.invalid) {
+      return
+    }
+    try {
+      const responseUpdate = await this.userService.updateEmployes(this.userID,infopatient);
+      if (responseUpdate) {
+        // this.populateTable();
+      }
+
+    } catch (error) {
+
+    }
+    this.closeDialog()
+  }
+  // UPDATE USER
+  async handleDeleteUser(userID) {
+    console.log("INFO DELETE ::: ",{userID})
+
+    try {
+      const responseDelete = await this.userService.deleteEmployes(userID);
+      if (responseDelete) {
+        this.populateTable();
+      }
+
+    } catch (error) {
+
+    }
+    this.closeDialog()
+  }
   closeDialog() {
     this.dialog = false;
-    this.usersForm.reset()
+    this.usersForm.reset();
+    this.isAddUser = true;
+    // this.userID = 0
   }
 
 }
